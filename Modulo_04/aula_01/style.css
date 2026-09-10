@@ -23,26 +23,9 @@ body {
   text-align: left
 }
 
-body{
-  color: red
-}
-
-.destaque{
-  background: blue;
-}
-
-#titulo{
-  font-size: 32px;
-}
-
-.cartao p{
-  color: orange;
-}
-
-.interesses > li{
-  color: aqua;
-}
-
-a[href="#"]{
-  color: purple;
+.cartao{
+  width: 500px;
+  padding: 500px;
+  border: 2px solid #93c5df;
+  margin: 16px;
 }
