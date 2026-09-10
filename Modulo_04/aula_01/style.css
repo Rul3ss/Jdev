@@ -1,0 +1,48 @@
+body {
+  background: #f4f7fb;
+  font-family: Arial, sans-serif;
+}
+
+.cartao {
+  background: white;
+}
+
+#titulo {
+  color: #2563eb;
+}
+
+.bio {
+  color: #ed3a3a
+}
+
+.apresentacao {
+  color: red;
+  background: #afb4bf;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 55px;
+  text-align: left
+}
+
+body{
+  color: red
+}
+
+.destaque{
+  background: blue;
+}
+
+#titulo{
+  font-size: 32px;
+}
+
+.cartao p{
+  color: orange;
+}
+
+.interesses > li{
+  color: aqua;
+}
+
+a[href="#"]{
+  color: purple;
+}
