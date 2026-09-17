@@ -1,0 +1,216 @@
+/* ===================================================================
+   EXEMPLO DA AULA 15 — Menus, Navegação e Pseudo-classes
+
+   Tudo aqui usa apenas o que já foi apresentado no curso:
+
+   das aulas 13 e 14 (CSS):
+     cores, font-family, font-size, font-weight, text-align, margin,
+     padding, border, border-radius, width, max-width, box-sizing,
+     linear-gradient e display (none, block, inline-block)
+
+   da aula 15:
+     list-style, text-decoration, pseudo-classes (:hover, :focus-visible,
+     :active, :checked), pseudo-elementos (::before e ::after), seletor de
+     atributo [aria-current="page"], outline/outline-offset e @media
+
+   Nada além disso: sem flexbox, sem position, sem animação.
+   =================================================================== */
+
+/* ------------------------------------------------------------------
+   1) BASE
+   ------------------------------------------------------------------ */
+body {
+  background: #0F0A2E;
+  color: #E8E6F5;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.topo {
+  box-sizing: border-box;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #2A2350;
+}
+
+main {
+  box-sizing: border-box;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 3rem;
+}
+
+section {
+  padding: 2rem 0;
+  border-top: 1px solid #2A2350;
+}
+
+/* a primeira seção não leva a linha de separação no topo */
+.abertura {
+  padding-top: 3rem;
+  border-top: 0;
+  background: linear-gradient(180deg, #1B1538, #0F0A2E);
+}
+
+h1 { font-size: 2.4rem; margin: 0 0 .5rem; }
+h2 { font-size: 1.5rem; margin: 0 0 1rem; }
+
+.dot        { color: #FF3D7F; }                /* o ponto dos títulos */
+.linha-fina { color: #9D9AB8; margin: 0 0 1rem; }
+
+/* ------------------------------------------------------------------
+   2) MENU E ESTADOS
+   ------------------------------------------------------------------ */
+/* a marca do site também é um link */
+.marca {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #E8E6F5;
+  text-decoration: none;
+}
+
+/* a lista deixa de ser lista visual: sem bolinhas, sem margem, sem padding */
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* cada link é um bloco com uma faixa embaixo:
+   a borda inferior é o espaço onde a "linha" aparece */
+.menu a {
+  display: block;
+  padding: .6rem .25rem;
+  color: #E8E6F5;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+}
+
+/* ESTADOS: mouse (:hover) e teclado (:focus-visible) */
+.menu a:hover,
+.menu a:focus-visible {
+  color: #FFC857;
+  background: #2A2350;
+}
+
+/* o contorno do foco não é escondido: ele é trocado por um contorno visível */
+.menu a:focus-visible {
+  outline: 3px solid #FFC857;
+  outline-offset: 3px;
+}
+
+/* ESTADO de clique (:active) */
+.menu a:active {
+  background: #FF3D7F;
+  color: #FFFFFF;
+}
+
+/* a página atual: a informação vem do HTML, com aria-current="page" */
+.menu a[aria-current="page"] {
+  color: #FF3D7F;
+  border-bottom-color: #FF3D7F;
+}
+
+/* ------------------------------------------------------------------
+   3) PSEUDO-ELEMENTOS (enfeites que não existem no HTML)
+   ------------------------------------------------------------------ */
+/* marcador antes do item atual: avisa sem depender só da cor */
+.menu a[aria-current="page"]::before { content: "▸ "; }
+
+/* seta decorativa antes do link em destaque */
+.destaque { color: #06D6A0; text-decoration: none; }
+.destaque::before { content: "→ "; }
+
+/* marcador próprio nas listas: um ::before por item */
+.passos,
+.sabores {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.passos li,
+.sabores li { padding: .35rem 0; }
+
+.passos li::before  { content: "▸ "; color: #FF3D7F; }
+.sabores li::before { content: "● "; color: #06D6A0; }
+
+/* botão da abertura: os mesmos estados do menu + seta com ::after */
+.botao {
+  display: inline-block;
+  margin-top: .5rem;
+  padding: .7rem 1.2rem;
+  border-radius: 999px;
+  background: #FF3D7F;
+  color: #FFFFFF;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.botao::after { content: " →"; }
+
+.botao:hover,
+.botao:focus-visible { background: #E02B6C; }
+
+.botao:focus-visible {
+  outline: 3px solid #FFC857;
+  outline-offset: 3px;
+}
+
+.botao:active { background: #C72460; }
+
+.rodape {
+  padding: 1.5rem;
+  border-top: 1px solid #2A2350;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------------
+   4) RESPONSIVO — CHECKBOX HACK (estratégia mobile first)
+   ------------------------------------------------------------------ */
+/* o input guarda o estado "aberto/fechado".
+   Ele fica invisível (opacity: 0), mas continua no documento — é isso que
+   faz o teclado ainda alcançar ele com a tecla Tab. */
+.menu-toggle {
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+/* o botão hambúrguer: um label ligado ao input pelo for */
+.menu-botao {
+  display: inline-block;
+  margin-top: .5rem;
+  font-size: 1.8rem;
+}
+
+/* no celular o menu começa fechado */
+.menu { display: none; }
+
+/* marcado → aberto (seletor de irmão geral ~) */
+.menu-toggle:checked ~ nav .menu { display: block; }
+
+/* foco no hambúrguer vindo do teclado */
+.menu-toggle:focus-visible + .menu-botao {
+  outline: 3px solid #FFC857;
+  outline-offset: 3px;
+}
+
+/* a partir de 768px: menu na horizontal, sem hambúrguer */
+@media (min-width: 768px) {
+  .menu-botao { display: none; }
+
+  /* o menu fica visível sempre — inclusive se o checkbox ficou marcado no
+     celular: por isso a regra :checked é repetida aqui dentro */
+  .menu,
+  .menu-toggle:checked ~ nav .menu { display: block; }
+
+  .menu li {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+
+  .menu a { display: inline-block; }
+}
+
+/* LIMITE CONHECIDO: o Checkbox Hack funciona no teclado, mas não anuncia
+   "aberto/fechado" para leitores de tela (isso depende de JavaScript). */

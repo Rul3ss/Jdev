@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caminhos do Recôncavo — exemplo da aula 15</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO: estado do menu + botão hambúrguer + lista de caminhos -->
+    <header class="topo">
+        <a class="marca" href="#inicio">Caminhos do Recôncavo</a>
+
+        <!-- 1. O ESTADO: o checkbox guarda "aberto/fechado" (escondido, mas focável) -->
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+        <!-- 2. O BOTÃO: o label aciona o checkbox — e funciona pelo teclado -->
+        <label for="menu-toggle" class="menu-botao" aria-label="Abrir menu de navegação">☰</label>
+
+        <!-- 3. OS CAMINHOS: a lista de destinos do site -->
+        <nav aria-label="Navegação principal">
+            <ul class="menu">
+                <li><a href="#inicio" aria-current="page">Início</a></li>
+                <li><a href="#roteiro">Roteiro</a></li>
+                <li><a href="#sabores">Sabores</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="inicio" class="abertura">
+            <h1>Travessia de um dia<span class="dot">.</span></h1>
+            <p class="linha-fina">
+                Exemplo da aula 15: tudo nesta página é HTML e CSS puros. Nenhuma linha de JavaScript.
+            </p>
+            <a class="botao" href="#roteiro">Ver o roteiro</a>
+        </section>
+
+        <section id="roteiro">
+            <h2>Roteiro</h2>
+            <ol class="passos">
+                <li>8h — feira livre de Cachoeira</li>
+                <li>11h — travessia de barco para São Félix</li>
+                <li>16h — subida ao mirante da Igreja</li>
+                <li>19h — forró na praça</li>
+            </ol>
+        </section>
+
+        <section id="sabores">
+            <h2>Sabores do caminho</h2>
+            <ul class="sabores">
+                <li>Vatapá da dona Zefa</li>
+                <li>Licor de jenipapo</li>
+                <li>Bolo de aipim com coco</li>
+            </ul>
+        </section>
+
+        <section id="contato">
+            <h2>Contato</h2>
+            <p class="linha-fina">
+                Combine o passeio no <a class="destaque" href="#contato">balcão da praça</a>
+                ou mande mensagem pelas redes.
+            </p>
+        </section>
+
+    </main>
+
+    <footer class="rodape">
+        <p class="linha-fina">
+            Teste assim: passe o mouse nos links, depois percorra tudo com <strong>Tab</strong>
+            e abra no celular para ver o menu ☰ funcionando.
+        </p>
+    </footer>
+
+</body>
+
+</html>
