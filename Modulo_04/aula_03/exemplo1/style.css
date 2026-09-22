@@ -1,0 +1,201 @@
+/* ===========================
+   RESET E BASE
+   =========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #1e293b;
+  line-height: 1.6;
+  padding-bottom: 2rem;
+}
+
+code {
+  background: #e2e8f0;
+  color: #0f172a;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95em;
+}
+
+/* ===========================
+   CABEÇALHO
+   =========================== */
+.topo {
+  background-color: #1e293b;
+  color: #fff;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.topo h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.topo p {
+  color: #cbd5e1;
+}
+
+/* ===========================
+   SEÇÕES
+   =========================== */
+.secao {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.secao h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #0f172a;
+}
+
+.explicacao {
+  color: #64748b;
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+}
+
+/* Estilo base das "caixinhas" que vamos reutilizar */
+.caixa,
+.caixa-inline,
+.caixa-inline-block {
+  padding: 1rem;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Cores reutilizáveis */
+.azul    { background-color: #3b82f6; }
+.verde   { background-color: #22c55e; }
+.laranja { background-color: #f97316; }
+.roxa    { background-color: #a855f7; }
+.ciano   { background-color: #06b6d4; }
+.rosa    { background-color: #ec4899; }
+
+/* ===========================
+   1. BLOCK
+   =========================== */
+.exemplo-block .caixa {
+  display: block;              /* padrão de <div>, mas explícito aqui */
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+/* ===========================
+   2. INLINE
+   =========================== */
+.exemplo-inline {
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.caixa-inline {
+  display: inline;             /* padrão de <span> */
+  padding: 0.25rem 0.75rem;    /* ⚠️ padding vertical NÃO empurra as linhas */
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+/* ===========================
+   3. INLINE-BLOCK
+   =========================== */
+.exemplo-inline-block {
+  text-align: center;          /* pra centralizar os inline-blocks */
+}
+
+.caixa-inline-block {
+  display: inline-block;       /* ⭐ fica na mesma linha E aceita tamanho */
+  width: 160px;
+  padding: 1rem;
+  margin: 0.25rem;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ===========================
+   4. FLEX
+   =========================== */
+.exemplo-flex {
+  display: flex;               /* ⭐ ativa o Flexbox no pai */
+  justify-content: space-between; /* distribui com espaço entre */
+  align-items: center;         /* alinha verticalmente no centro */
+  gap: 0.75rem;
+  flex-wrap: wrap;             /* permite quebrar linha se faltar espaço */
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  min-height: 150px;
+}
+
+.exemplo-flex .caixa {
+  flex: 1;                     /* ⭐ cada filho cresce igualmente */
+  min-width: 120px;
+}
+
+
+.exemplo-flex .caixa.azul {
+  align-self: flex-end; 
+  position: absolute;  /* ⭐ tira do fluxo normal */
+  left: 30px;      /* sobrescreve o alinhamento vertical */
+}
+
+/* ===========================
+   5. GRID
+   =========================== */
+.exemplo-grid {
+  display: grid;               /* ⭐ ativa o Grid no pai */
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+  gap: 0.75rem;
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+/* A caixa "Grid 5" vai ocupar 2 colunas pra mostrar o poder do grid */
+.exemplo-grid .caixa:nth-child(5) {
+  grid-column: span 2;
+}
+
+/* ===========================
+   RODAPÉ
+   =========================== */
+.rodape {
+  text-align: center;
+  color: #64748b;
+  padding: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* ===========================
+   RESPONSIVO
+   =========================== */
+@media (max-width: 600px) {
+  .exemplo-grid {
+    grid-template-columns: 1fr; /* 1 coluna no mobile */
+  }
+
+  .exemplo-grid .caixa:nth-child(5) {
+    grid-column: span 1;
+  }
+
+  .exemplo-flex {
+    justify-content: center;
+  }
+}

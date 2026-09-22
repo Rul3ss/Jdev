@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hierarquia no HTML e CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topo">
+    <h1>Hierarquia no HTML & CSS</h1>
+    <p>Entenda quem é pai, filho, irmão — e como o estilo viaja pela árvore.</p>
+  </header>
+
+  <!-- ==========================================
+       ÁRVORE VISUAL
+       ========================================== -->
+  <section class="secao">
+    <h2>1. A árvore do DOM</h2>
+    <p class="explicacao">
+      Todo HTML é uma árvore. Cada elemento tem um <strong>pai</strong> e pode ter <strong>filhos</strong>.
+    </p>
+
+    <div class="arvore">
+      <div class="no avo">
+        <span class="tag">&lt;div class="avô"&gt;</span>
+
+        <div class="no pai">
+          <span class="tag">&lt;section class="pai"&gt;</span>
+
+          <div class="no filho">
+            <span class="tag">&lt;article class="filho"&gt;</span>
+
+            <div class="no neto">
+              <span class="tag">&lt;p class="neto"&gt;</span>
+              Texto
+              <span class="tag">&lt;/p&gt;</span>
+            </div>
+
+            <span class="tag">&lt;/article&gt;</span>
+          </div>
+
+          <div class="no filho">
+            <span class="tag">&lt;article class="filho"&gt;</span>
+            <div class="no neto">
+              <span class="tag">&lt;p class="neto"&gt;</span>
+              Outro texto
+              <span class="tag">&lt;/p&gt;</span>
+            </div>
+            <span class="tag">&lt;/article&gt;</span>
+          </div>
+
+          <span class="tag">&lt;/section&gt;</span>
+        </div>
+
+        <span class="tag">&lt;/div&gt;</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       HERANÇA
+       ========================================== -->
+  <section class="secao">
+    <h2>2. Herança: o estilo que "desce"</h2>
+    <p class="explicacao">
+      Algumas propriedades (como <code>color</code> e <code>font-family</code>) são herdadas pelos filhos.
+      Outras (como <code>border</code> e <code>margin</code>) <strong>não são</strong>.
+    </p>
+
+    <div class="heranca">
+      <p>Sou filho direto — herdei a cor e a fonte do pai.</p>
+      <div>
+        <p>Sou neto — também herdei, mesmo estando mais fundo.</p>
+        <span>E eu sou <strong>bisneto</strong>, herdei também!</span>
+      </div>
+      <hr>
+      <p>Mas repara: só o texto herdou. A borda e o padding do pai <strong>não</strong> foram herdados.</p>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       ESPECIFICIDADE
+       ========================================== -->
+  <section class="secao">
+    <h2>3. Especificidade: quem ganha a briga?</h2>
+    <p class="explicacao">
+      Quando vários seletores apontam pro mesmo elemento, vence o <strong>mais específico</strong>.
+    </p>
+
+    <div class="briga">
+      <p class="texto" id="unico">
+        Qual cor eu vou ficar? 🤔
+      </p>
+    </div>
+
+    <ol class="ranking">
+      <li><code>!important</code> (evite!)</li>
+      <li><code>style=""</code> inline</li>
+      <li><code>#id</code></li>
+      <li><code>.classe</code>, <code>[atributo]</code>, <code>:hover</code></li>
+      <li><code>tag</code>, <code>::before</code></li>
+    </ol>
+  </section>
+
+  <!-- ==========================================
+       SELETORES DE RELAÇÃO
+       ========================================== -->
+  <section class="secao">
+    <h2>4. Seletores de relação</h2>
+    <p class="explicacao">
+      Você pode mirar um elemento <strong>dependendo de onde ele está</strong> na árvore.
+    </p>
+
+    <div class="relacoes">
+
+      <!-- Descendente (espaço) -->
+      <div class="bloco">
+        <h3>Descendente: <code>.bloco p</code></h3>
+        <p>Qualquer p lá dentro, em qualquer nível.</p>
+        <div>
+          <p>Eu também sou atingido (estou fundo, mas sou descendente).</p>
+        </div>
+      </div>
+
+      <!-- Filho direto (>) -->
+      <div class="bloco">
+        <h3>Filho direto: <code>.bloco &gt; p</code></h3>
+        <p>Só o p que é filho direto.</p>
+        <div>
+          <p>Eu NÃO sou atingido (estou dentro de uma div).</p>
+        </div>
+      </div>
+
+      <!-- Irmão adjacente (+) -->
+      <div class="bloco">
+        <h3>Irmão adjacente: <code>h3 + p</code></h3>
+        <p>Só o primeiro p logo depois do h3.</p>
+        <p>Eu NÃO sou atingido (não sou o primeiro).</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="rodape">
+    Fim da aula de hierarquia 🌳
+  </footer>
+
+</body>
+</html>

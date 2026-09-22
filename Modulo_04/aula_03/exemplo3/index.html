@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Os 5 tipos de position</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================
+       NAVBAR FIXA (position: fixed)
+       ============================ -->
+  <header class="navbar-fixa">
+    <span>📌 Navbar com <code>position: fixed</code></span>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Sobre</a>
+      <a href="#">Contato</a>
+    </nav>
+  </header>
+
+  <!-- ============================
+       BOTÃO VOLTAR AO TOPO (fixed)
+       ============================ -->
+  <a href="#" class="voltar-topo">↑</a>
+
+  <main class="conteudo">
+
+    <h1>Os 5 tipos de <code>position</code></h1>
+    <p class="intro">
+      Role a página pra ver o <strong>fixed</strong> e o <strong>sticky</strong> agindo.
+      Cada seção mostra um tipo diferente em ação.
+    </p>
+
+    <!-- ============================
+         1. STATIC
+         ============================ -->
+    <section class="secao">
+      <h2>1. <code>position: static</code> (padrão)</h2>
+      <p class="explicacao">
+        É o valor padrão. Ignora <code>top</code>, <code>left</code>, <code>right</code>,
+        <code>bottom</code> e <code>z-index</code>. Segue o fluxo normal do HTML.
+      </p>
+
+      <div class="palco">
+        <div class="caixa static">
+          static
+          <span class="obs">top/left não funcionam aqui</span>
+        </div>
+        <div class="caixa neutra">caixa normal</div>
+      </div>
+    </section>
+
+    <!-- ============================
+         2. RELATIVE
+         ============================ -->
+    <section class="secao">
+      <h2>2. <code>position: relative</code></h2>
+      <p class="explicacao">
+        Desloca a partir da posição original. <strong>O espaço original continua reservado</strong> —
+        repare que a segunda caixa não sobe.
+      </p>
+
+      <div class="palco">
+        <div class="caixa relative">relative<br><small>top: -20px / left: 40px</small></div>
+        <div class="caixa neutra">caixa normal</div>
+      </div>
+    </section>
+
+    <!-- ============================
+         3. ABSOLUTE
+         ============================ -->
+    <section class="secao">
+      <h2>3. <code>position: absolute</code></h2>
+      <p class="explicacao">
+        Sai do fluxo e se posiciona em relação ao <strong>ancestral posicionado</strong>
+        (aqui, a <code>.palco</code> tem <code>position: relative</code>).
+      </p>
+
+      <div class="palco palco-absolute">
+        <span class="badge-absolute">absolute</span>
+        <p>Conteúdo normal do palco.</p>
+        <p>O badge está no canto superior direito.</p>
+        <span class="badge-canto">canto inferior direito</span>
+      </div>
+
+      <p class="dica">
+        💡 Remova o <code>position: relative</code> do <code>.palco</code> e veja os badges
+        fugirem pro canto da <strong>página</strong>.
+      </p>
+    </section>
+
+    <!-- ============================
+         4. FIXED
+         ============================ -->
+    <section class="secao">
+      <h2>4. <code>position: fixed</code></h2>
+      <p class="explicacao">
+        Fica <strong>colado na tela</strong> e não rola junto com a página.
+        Veja a navbar no topo e o botão "↑" no canto inferior direito.
+      </p>
+
+      <div class="palco">
+        <p>Role a página → a navbar e o botão continuam no lugar.</p>
+      </div>
+    </section>
+
+    <!-- ============================
+         5. STICKY
+         ============================ -->
+    <section class="secao">
+      <h2>5. <code>position: sticky</code></h2>
+      <p class="explicacao">
+        Se comporta como <code>relative</code> até você rolar até ele. Aí <strong>"gruda"</strong>
+        no topo. Role devagar e veja o título grudar.
+      </p>
+
+      <div class="sticky-wrapper">
+        <h3 class="titulo-sticky">📌 Eu sou <code>sticky</code> — role e me veja grudar</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    Fim da aula de <code>position</code> 📍
+  </footer>
+
+</body>
+</html>

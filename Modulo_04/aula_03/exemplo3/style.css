@@ -1,0 +1,272 @@
+/* ===========================
+   RESET E BASE
+   =========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f2f5;
+  color: #1e293b;
+  line-height: 1.6;
+  padding-top: 70px; /* espaço pra navbar fixa não cobrir o conteúdo */
+}
+
+code {
+  background: #e2e8f0;
+  color: #0f172a;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+/* ===========================
+   NAVBAR FIXA (fixed)
+   =========================== */
+.navbar-fixa {
+  position: fixed;      /* ⬅️ fica grudada na tela */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #1e293b;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-fixa nav {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.navbar-fixa a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-fixa a:hover {
+  color: #38bdf8;
+}
+
+/* ===========================
+   BOTÃO VOLTAR AO TOPO (fixed)
+   =========================== */
+.voltar-topo {
+  position: fixed;      /* ⬅️ fixo no canto da tela */
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #3b82f6;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: bold;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  transition: transform 0.2s ease, background 0.3s ease;
+  z-index: 100;
+}
+
+.voltar-topo:hover {
+  background: #2563eb;
+  transform: scale(1.1);
+}
+
+/* ===========================
+   CONTEÚDO
+   =========================== */
+.conteudo {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.intro {
+  color: #64748b;
+  margin-bottom: 2rem;
+}
+
+/* ===========================
+   SEÇÕES
+   =========================== */
+.secao {
+  background: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
+}
+
+.secao h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.explicacao {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.dica {
+  background: #fef3c7;
+  border-left: 4px solid #f59e0b;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+/* ===========================
+   PALCO (área de demonstração)
+   =========================== */
+.palco {
+  position: relative;   /* ⬅️ referência pros filhos absolute */
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 8px;
+  min-height: 120px;
+  border: 2px dashed #cbd5e1;
+}
+
+/* Variação pra mostrar o absolute em ação */
+.palco-absolute {
+  min-height: 160px;
+  padding: 1.5rem;
+}
+
+/* ===========================
+   CAIXAS GENÉRICAS
+   =========================== */
+.caixa {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.caixa small {
+  font-weight: normal;
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.caixa.neutra {
+  background: #94a3b8;
+}
+
+/* ===========================
+   1. STATIC
+   =========================== */
+.caixa.static {
+  background: #64748b;
+  /* ⚠️ top/left são IGNORADOS aqui, mesmo se você tentar */
+  top: 50px;    /* não faz nada */
+  left: 50px;   /* não faz nada */
+}
+
+.caixa.static .obs {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: normal;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* ===========================
+   2. RELATIVE
+   =========================== */
+.caixa.relative {
+  position: relative;   /* ⬅️ ativa o deslocamento */
+  background: #22c55e;
+  top: -20px;
+  left: 40px;
+  /* repare: o "buraco" original continua ali,
+     por isso a caixa de baixo NÃO sobe */
+}
+
+/* ===========================
+   3. ABSOLUTE
+   =========================== */
+.badge-absolute {
+  position: absolute;   /* ⬅️ sai do fluxo, posiciona no .palco */
+  top: 10px;
+  right: 10px;
+  background: #ef4444;
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.badge-canto {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: #3b82f6;
+  color: #fff;
+  padding: 0.35rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ===========================
+   5. STICKY
+   =========================== */
+.sticky-wrapper {
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  max-height: 260px;
+  overflow-y: auto;    /* ⚠️ sticky precisa de um container com scroll */
+  border: 2px dashed #cbd5e1;
+}
+
+.titulo-sticky {
+  position: sticky;    /* ⬅️ gruda no topo ao rolar */
+  top: 0;
+  background: #7c3aed;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+  z-index: 10;
+}
+
+.sticky-wrapper p {
+  margin-bottom: 0.75rem;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+/* ===========================
+   RODAPÉ
+   =========================== */
+.rodape {
+  text-align: center;
+  padding: 2rem;
+  color: #64748b;
+  font-size: 0.9rem;
+}

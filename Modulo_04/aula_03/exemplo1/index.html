@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Os displays do CSS na prática</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topo">
+    <h1>Os <code>display</code> do CSS na prática</h1>
+    <p>Veja como cada valor de <code>display</code> muda o comportamento dos elementos.</p>
+  </header>
+
+  <!-- ============================
+       1. BLOCK
+       ============================ -->
+  <section class="secao">
+    <h2>1. <code>display: block</code></h2>
+    <p class="explicacao">
+      Cada elemento ocupa a linha toda. Um fica embaixo do outro.
+    </p>
+
+    <div class="exemplo-block">
+      <div class="caixa azul">Block 1</div>
+      <div class="caixa verde">Block 2</div>
+      <div class="caixa laranja">Block 3</div>
+    </div>
+  </section>
+
+  <!-- ============================
+       2. INLINE
+       ============================ -->
+  <section class="secao">
+    <h2>2. <code>display: inline</code></h2>
+    <p class="explicacao">
+      Ficam na mesma linha, mas <strong>não aceitam</strong> largura e altura.
+    </p>
+
+    <p class="exemplo-inline">
+      Um texto normal aqui,
+      <span class="caixa-inline azul">inline 1</span>
+      <span class="caixa-inline verde">inline 2</span>
+      <span class="caixa-inline laranja">inline 3</span>
+      e o texto continua na mesma linha.
+    </p>
+  </section>
+
+  <!-- ============================
+       3. INLINE-BLOCK
+       ============================ -->
+  <section class="secao">
+    <h2>3. <code>display: inline-block</code></h2>
+    <p class="explicacao">
+      Ficam na mesma linha <strong>e aceitam</strong> largura, altura, margin e padding.
+    </p>
+
+    <div class="exemplo-inline-block">
+      <div class="caixa-inline-block azul">Inline-Block 1</div>
+      <div class="caixa-inline-block verde">Inline-Block 2</div>
+      <div class="caixa-inline-block laranja">Inline-Block 3</div>
+    </div>
+  </section>
+
+  <!-- ============================
+       4. FLEX
+       ============================ -->
+  <section class="secao">
+    <h2>4. <code>display: flex</code></h2>
+    <p class="explicacao">
+      O pai vira um "organizador": distribui os filhos em linha (ou coluna) com alinhamento e espaçamento fáceis.
+    </p>
+
+    <div class="exemplo-flex">
+      <div class="caixa azul">Flex 1</div>
+      <div class="caixa verde">Flex 2</div>
+      <div class="caixa laranja">Flex 3</div>
+      <div class="caixa roxa">Flex 4</div>
+    </div>
+  </section>
+
+  <!-- ============================
+       5. GRID
+       ============================ -->
+  <section class="secao">
+    <h2>5. <code>display: grid</code></h2>
+    <p class="explicacao">
+      O pai vira um "tabuleiro": você define linhas e colunas ao mesmo tempo.
+    </p>
+
+    <div class="exemplo-grid">
+      <div class="caixa azul">Grid 1</div>
+      <div class="caixa verde">Grid 2</div>
+      <div class="caixa laranja">Grid 3</div>
+      <div class="caixa roxa">Grid 4</div>
+      <div class="caixa ciano">Grid 5</div>
+      <div class="caixa rosa">Grid 6</div>
+    </div>
+  </section>
+
+  <footer class="rodape">
+    Feito com HTML e CSS puro 💙
+  </footer>
+
+</body>
+</html>
