@@ -1,0 +1,25 @@
+a{
+    text-decoration: none;
+}
+
+.menu a { position: relative; }
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  padding: 0;
+}
+
+.menu a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 0; height: 3px;
+  background: #FFC857;
+  transition: width .25s ease;
+}
+
+.menu a:hover::after,
+
+.menu a:focus-visible::after { width: 100%; }

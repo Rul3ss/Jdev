@@ -70,7 +70,7 @@
     </p>
 
     <div class="heranca">
-      <p>Sou filho direto — herdei a cor e a fonte do pai.</p>
+      <p class="filho">Sou filho direto — herdei a cor e a fonte do pai.</p>
       <div>
         <p>Sou neto — também herdei, mesmo estando mais fundo.</p>
         <span>E eu sou <strong>bisneto</strong>, herdei também!</span>
@@ -79,31 +79,6 @@
       <p>Mas repara: só o texto herdou. A borda e o padding do pai <strong>não</strong> foram herdados.</p>
     </div>
   </section>
-
-  <!-- ==========================================
-       ESPECIFICIDADE
-       ========================================== -->
-  <section class="secao">
-    <h2>3. Especificidade: quem ganha a briga?</h2>
-    <p class="explicacao">
-      Quando vários seletores apontam pro mesmo elemento, vence o <strong>mais específico</strong>.
-    </p>
-
-    <div class="briga">
-      <p class="texto" id="unico">
-        Qual cor eu vou ficar? 🤔
-      </p>
-    </div>
-
-    <ol class="ranking">
-      <li><code>!important</code> (evite!)</li>
-      <li><code>style=""</code> inline</li>
-      <li><code>#id</code></li>
-      <li><code>.classe</code>, <code>[atributo]</code>, <code>:hover</code></li>
-      <li><code>tag</code>, <code>::before</code></li>
-    </ol>
-  </section>
-
   <!-- ==========================================
        SELETORES DE RELAÇÃO
        ========================================== -->

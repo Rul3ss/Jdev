@@ -124,46 +124,14 @@ code {
   border-top: 1px solid #ddd;
 }
 
-/* ===========================
-   3. ESPECIFICIDADE
-   =========================== */
-.briga {
-  text-align: center;
-  padding: 1rem;
-  background: #f8fafc;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
+/*.heranca p{
+    border: 2px dashed #0f172a
+}*/
 
-/* Os três seletores brigam pelo mesmo elemento */
-
-/* Especificidade baixa: 0,0,1 */
-p {
-  color: #64748b;
-  font-size: 1rem;
-}
-
-/* Especificidade média: 0,1,0 */
-.texto {
-  color: #22c55e;
-  font-size: 1.1rem;
-}
-
-/* Especificidade alta: 1,0,0 — VENCE */
-#unico {
-  color: #ef4444;
-  font-size: 1.3rem;
-  font-weight: bold;
-}
-
-.ranking {
-  padding-left: 1.5rem;
-  color: #475569;
-}
-
-.ranking li {
-  margin-bottom: 0.25rem;
-}
+/*.filho {
+  margin: 1rem 0;
+  border: 2px dashed #0f172a
+}*/
 
 /* ===========================
    4. SELETORES DE RELAÇÃO

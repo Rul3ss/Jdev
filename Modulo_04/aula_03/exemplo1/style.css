@@ -90,7 +90,7 @@ code {
    1. BLOCK
    =========================== */
 .exemplo-block .caixa {
-  display: block;              /* padrão de <div>, mas explícito aqui */
+  display: block;              /* parametro que vamos observar */
   width: 100%;
   margin-bottom: 0.75rem;
 }
@@ -105,8 +105,9 @@ code {
 }
 
 .caixa-inline {
-  display: inline;             /* padrão de <span> */
+  display: inline;             /* parametro que vamos observar */
   padding: 0.25rem 0.75rem;    /* ⚠️ padding vertical NÃO empurra as linhas */
+  /*width: 500px;*/
   border-radius: 4px;
   font-size: 0.85rem;
 }
@@ -119,7 +120,7 @@ code {
 }
 
 .caixa-inline-block {
-  display: inline-block;       /* ⭐ fica na mesma linha E aceita tamanho */
+  display: inline-block;       /* parametro que vamos observar */
   width: 160px;
   padding: 1rem;
   margin: 0.25rem;
@@ -133,7 +134,7 @@ code {
    4. FLEX
    =========================== */
 .exemplo-flex {
-  display: flex;               /* ⭐ ativa o Flexbox no pai */
+  display: flex;               /* parametro que vamos observar */
   justify-content: space-between; /* distribui com espaço entre */
   align-items: center;         /* alinha verticalmente no centro */
   gap: 0.75rem;
@@ -150,11 +151,12 @@ code {
 }
 
 
-.exemplo-flex .caixa.azul {
+/*.exemplo-flex .caixa.azul {
   align-self: flex-end; 
-  position: absolute;  /* ⭐ tira do fluxo normal */
-  left: 30px;      /* sobrescreve o alinhamento vertical */
-}
+  position: absolute;
+  width: 20px;
+
+}*/
 
 /* ===========================
    5. GRID
