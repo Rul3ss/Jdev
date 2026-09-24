@@ -1,0 +1,61 @@
+/* =====================================================================
+   style.css — EXEMPLO DA AULA 16
+   (apostila, seção 4.2: as três formas de sobrescrever um framework)
+
+   Este arquivo NÃO reescreve o Bootstrap: ele só ajusta a identidade do
+   projeto por cima do framework. Repare que ele é chamado DEPOIS do
+   bootstrap.min.css no <head> — a ordem é metade do trabalho.
+
+   Aqui NÃO existe um único !important: o mesmo efeito sai de um seletor
+   mais específico + as variáveis que o próprio Bootstrap expõe.
+   ===================================================================== */
+
+/* A cor do projeto fica em um lugar só, para trocar tudo de uma vez */
+:root {
+  --jd-rosa: #FF3D7F;
+  --jd-rosa-escuro: #E02B6C;
+  --jd-rosa-ativo: #C72460;
+  --jd-tinta: #1F1B33;
+}
+
+/* ---------------------------------------------------------------------
+   1) Estratégia "mesma classe": o seletor .form-contato .btn-primary é
+      mais específico que o .btn-primary do framework (0,2,0 contra 0,1,0),
+      então ele vence sem precisar de !important.
+   2) Estratégia "variáveis": em vez de pintar o botão na mão, eu troco
+      as variáveis --bs-btn-* que o componente já lê. Se o Bootstrap mudar
+      a estrutura dele, o meu botão continua funcionando.
+   --------------------------------------------------------------------- */
+.form-contato .btn-primary {
+  --bs-btn-bg: var(--jd-rosa);
+  --bs-btn-border-color: var(--jd-rosa);
+  --bs-btn-hover-bg: var(--jd-rosa-escuro);
+  --bs-btn-hover-border-color: var(--jd-rosa-escuro);
+  --bs-btn-active-bg: var(--jd-rosa-ativo);
+  --bs-btn-active-border-color: var(--jd-rosa-ativo);
+  /* a cor do "anel" que aparece no foco também é uma variável */
+  --bs-btn-focus-shadow-rgb: 255, 61, 127;
+}
+
+/* O mesmo truque nos campos: o foco deixa de ser azul e vira rosa */
+.form-contato .form-control:focus,
+.form-contato .form-select:focus {
+  border-color: var(--jd-rosa);
+  box-shadow: 0 0 0 0.25rem rgba(255, 61, 127, 0.25);
+}
+
+/* ---------------------------------------------------------------------
+   3) Estratégia "aceitar a base": o card do formulário só ganha um detalhe
+      de identidade (uma tarja em cima e uma sombra leve), sem brigar com
+      o que o framework já resolve.
+   --------------------------------------------------------------------- */
+.form-contato {
+  border: 0;
+  border-top: 4px solid var(--jd-rosa);
+  box-shadow: 0 6px 24px rgba(17, 12, 46, 0.08);
+}
+
+/* Um ajuste de cor que não tem variável: o texto da legenda */
+legend.form-label {
+  color: var(--jd-tinta);
+}

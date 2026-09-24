@@ -151,12 +151,12 @@ code {
 }
 
 
-/*.exemplo-flex .caixa.azul {
+.exemplo-flex .caixa.azul {
   align-self: flex-end; 
   position: absolute;
   width: 20px;
 
-}*/
+}
 
 /* ===========================
    5. GRID
@@ -172,7 +172,7 @@ code {
 
 /* A caixa "Grid 5" vai ocupar 2 colunas pra mostrar o poder do grid */
 .exemplo-grid .caixa:nth-child(5) {
-  grid-column: span 2;
+  grid-column: span 2 ;
 }
 
 /* ===========================

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Formulário de contato — exemplo da aula 16</title>
+
+    <!-- =====================================================================
+         EXEMPLO DA AULA 16 — Bootstrap em formulários
+         É o conteúdo das seções 1 a 5 da apostila reunido em uma página só.
+
+         O que observar:
+           1. a ORDEM no <head>: primeiro o Bootstrap, depois o meu style.css
+           2. o layout com container + row + col (sem largura na mão)
+           3. cada campo com a sua classe: form-label, form-control, form-select…
+           4. os utilitários de espaço: mb-3, py-5, g-4, d-grid
+           5. o que o MEU CSS muda: cor do botão e anel de foco (style.css)
+           6. o novalidate + as classes de validação no campo de e-mail
+
+         Para experimentar:
+           · percorra o formulário com a tecla Tab (foco visível em cada campo)
+           · diminua a janela até ~400px: as colunas se empilham sozinhas
+           · com F12 aberto, troque uma classe na aba Elements e veja mudar
+         ===================================================================== -->
+
+    <!-- 1º o framework (CSS)... -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- ...e 2º o meu CSS, SEMPRE depois dele: quem vem por último ganha -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-light">
+
+    <!-- container: as laterais com respiro e o miolo alinhado -->
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            <!-- col-12 no celular, col-md-10 no tablet, col-lg-7 no desktop -->
+            <div class="col-12 col-md-10 col-lg-7">
+
+                <h1 class="h3 mb-1">Fale com a gente</h1>
+                <p class="text-secondary">
+                    Exemplo da aula 16: um formulário com as classes do Bootstrap e a identidade do projeto.
+                </p>
+
+                <!-- form-contato = a MINHA classe, usada no style.css para sobrescrever -->
+                <form class="form-contato card p-4 mt-4" novalidate>
+
+                    <!-- 1) campo de texto: rótulo + campo + texto de ajuda -->
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome completo</label>
+                        <input type="text" class="form-control" id="nome" placeholder="Como no seu documento"
+                            required aria-describedby="nome-ajuda">
+                        <div id="nome-ajuda" class="form-text">Aparece no rodapé do site.</div>
+                    </div>
+
+                    <!-- 2) input-group: o símbolo fica colado no campo -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-mail</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="email-simbolo">@</span>
+                            <!-- is-invalid é o estado de erro; aqui está fixo só para você ver o visual -->
+                            <input type="email" class="form-control is-invalid" id="email"
+                                placeholder="voce@email.com" required aria-describedby="email-simbolo email-erro">
+                            <div id="email-erro" class="invalid-feedback">Digite um e-mail que a gente consiga responder.</div>
+                        </div>
+                    </div>
+
+                    <!-- 3) select: opções prontas -->
+                    <div class="mb-3">
+                        <label for="motivo" class="form-label">Motivo do contato</label>
+                        <select class="form-select" id="motivo" required>
+                            <option value="" selected disabled>Escolha uma opção</option>
+                            <option>Quero um orçamento</option>
+                            <option>Tenho uma dúvida</option>
+                            <option>Quero trabalhar com vocês</option>
+                        </select>
+                    </div>
+                    <!-- 4) texto longo: no form-floating o rótulo fica dentro do campo -->
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" id="assunto" placeholder="Escreva aqui"
+                            style="height: 120px" required></textarea>
+                        <label for="assunto">Assunto</label>
+                    </div>
+
+                    <!-- 5) radio e checkbox: fieldset + legend agrupam para quem usa leitor de tela -->
+                    <fieldset class="mb-3">
+                        <legend class="form-label fs-6">Como prefere ser respondido?</legend>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="resposta" id="resposta-email" checked>
+                            <label class="form-check-label" for="resposta-email">Por e-mail</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="resposta" id="resposta-whats">
+                            <label class="form-check-label" for="resposta-whats">Por WhatsApp</label>
+                        </div>
+                    </fieldset>
+
+                    <!-- 6) interruptor: um checkbox com cara de chave (form-switch) -->
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" id="novidades" checked>
+                        <label class="form-check-label" for="novidades">Quero receber novidades</label>
+                    </div>
+
+                    <!-- 7) nota de 0 a 5: o range só fica assim com a classe do Bootstrap -->
+                    <div class="mb-3">
+                        <label for="nota" class="form-label">De 0 a 5, quanto você gostou do site?</label>
+                        <input type="range" class="form-range" id="nota" min="0" max="5" step="1" value="5">
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="aceite" required>
+                        <label class="form-check-label" for="aceite">Autorizo o contato e li o aviso de privacidade.</label>
+                    </div>
+
+                    <!-- os botões: um cheio (principal) e um de contorno (secundário) -->
+                    <div class="d-grid gap-2 d-sm-flex">
+                        <button type="submit" class="btn btn-primary px-4">Enviar mensagem</button>
+                        <button type="reset" class="btn btn-outline-secondary px-4">Limpar</button>
+                    </div>
+                </form>
+
+                <p class="form-text mt-3 mb-0">
+                    As cores deste botão não são as do Bootstrap: elas vêm do <code>style.css</code>.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- o JavaScript do framework: sem ele não há dropdown, modal nem menu sanfona -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
