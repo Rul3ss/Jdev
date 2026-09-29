@@ -1,0 +1,7 @@
+Crie uma variação de card para meu portfólio.
+Use Bootstrap 5.3 e preserve os IDs existentes.
+Inclua título, descrição e link com nome claro.
+Explique a hierarquia de títulos e o texto alternativo.
+Mostre como verificar a página em tela estreita.
+Não adicione bibliotecas nem scripts novos.
+[cole seu HTML]

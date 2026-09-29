@@ -1,0 +1,12 @@
+Audite este componente em Bootstrap 5.3.
+[cole o HTML e o JavaScript associados]
+
+Para cada problema, indique:
+- trecho e impacto para a pessoa usuária;
+- correção mínima, com justificativa;
+- passos e resultado esperado do teste.
+
+Verifique nomes, IDs, foco, ARIA e notificações.
+Separe evidências no código de hipóteses que
+precisam de teste no navegador.
+Não declare conformidade apenas pela leitura.
