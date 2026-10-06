@@ -1,17 +1,54 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Meu portfólio</title>
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
+
 <body>
-  <main class="container py-4"></main>
+  <main class="container py-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+      <div class="col ms auto">
+        <article class="card">
+          <div class="card-body">
+            <h2 class="card-title">Conecta Recôncavo</h2>
+            <p class="card-text">Oportunidades para jovens da região.</p>
+            <a href="#conecta" class="btn btn-primary">
+              Conhecer o Conecta
+            </a>
+          </div>
+        </article>
+      </div>
+      <div class="col position-absolute topo-esquerdo" style="left: 20px; top: 30px;">
+        <article class="card">
+          <div class="card-body">
+            <h2 class="card-title">Conecta Recôncavo</h2>
+            <p class="card-text">Oportunidades para jovens da região.</p>
+            <a href="#conecta" class="btn btn-primary">
+              Conhecer o Conecta
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+    <section id="conecta" class="mt-4">
+      <h2>Sobre o Conecta</h2>
+      <p>Um projeto de estudo com vagas e cursos.</p>
+    </section>
+
+    <button id="salvar" type="button" class="btn btn-success">
+      <i class="bi bi-bookmark" aria-hidden="true"></i>
+      Salvar projeto
+    </button>
+
+
+  </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   <script src="app.js"></script>
 </body>
+
 </html>
