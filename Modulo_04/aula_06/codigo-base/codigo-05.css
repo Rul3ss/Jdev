@@ -1,0 +1,6 @@
+/* base: celular → uma coluna */
+.lista { display: grid; gap: 16px; }
+/* a partir de 768px: duas colunas */
+@media (min-width: 768px) {
+  .lista { grid-template-columns: 1fr 1fr; }
+}

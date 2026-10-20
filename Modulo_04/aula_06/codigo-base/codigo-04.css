@@ -1,0 +1,3 @@
+.pagina { display: grid; grid-template-columns: 200px 1fr;
+  grid-template-areas: "menu topo" "menu corpo"; gap: 16px; }
+.menu { grid-area: menu; } .topo { grid-area: topo; } .corpo { grid-area: corpo; }

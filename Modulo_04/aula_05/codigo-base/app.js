@@ -1,2 +1,8 @@
-// Arquivo de apoio dos Códigos 1 e 8. Copie junto do HTML para seu projeto.
-// Acrescente as interações da quinta-feira aqui.
+const aviso = bootstrap.Toast.getOrCreateInstance(
+  document.getElementById('avisoSalvo'), { delay: 5000 }
+);
+document.getElementById('salvar').addEventListener('click', () => {
+  document.getElementById('estadoSalvo').textContent =
+    'Salvo nesta demonstração (sem persistência).';
+  aviso.show();
+});

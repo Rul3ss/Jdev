@@ -1,0 +1,8 @@
+Você é um assistente de front-end.
+Reescreva esta seção usando a grade do Bootstrap 5.3.
+Requisitos: mobile-first; col-12 no celular,
+col-md-6 e col-lg-4 no tablet e no desktop.
+Preserve os títulos, os textos e os IDs.
+Não adicione bibliotecas nem estilos novos.
+Explique as classes usadas e os breakpoints.
+[cole seu HTML]

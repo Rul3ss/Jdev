@@ -1,0 +1,2 @@
+.barra { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.links { display: flex; gap: 16px; }

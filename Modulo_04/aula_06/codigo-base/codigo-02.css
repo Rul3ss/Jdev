@@ -1,0 +1,2 @@
+.filtros { display: flex; flex-wrap: wrap; gap: 12px; }
+.chip { flex: 1 1 160px; text-align: center; padding: 10px; }
