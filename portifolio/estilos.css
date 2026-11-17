@@ -1,0 +1,2404 @@
+/* ==========================================================================
+   Kit de estilo do portfólio · Juventude Dev        (arquivo de APOIO PRONTO)
+   --------------------------------------------------------------------------
+   Você NÃO escreve CSS nas aulas: este arquivo já vem pronto.
+   O seu trabalho é usar estas classes (className) nos componentes React.
+
+   COMO LER ESTE ARQUIVO
+   Acima de cada variável e de cada regra tem um comentário assim:
+     O QUE É  → o que aquilo faz, em português simples
+     ONDE     → em quais componentes aparece e em que aula (Hero (aula 29) =
+                src/components/Hero/Hero.jsx, que usa a classe desde a aula 29)
+     MUDAR    → o que acontece se você trocar o valor ("mudar isto altera...")
+   Home, Projetos, Contato... são páginas: nas aulas 29 a 31 a Home ainda mora
+   dentro do App.jsx; na aula 32 ela vira src/pages/Home/Home.jsx.
+
+   RECEITAS RÁPIDAS (para testar na aula: salve e olhe o navegador)
+     • Trocar a cor principal do site .... --destaque (e --destaque-texto,
+                                            --destaque-hover, --destaque-suave,
+                                            --destaque-borda, --brilho-botao)
+     • Trocar o fundo ................... --fundo, --fundo-2 e --superficie
+     • Trocar a letra ................... --fonte-texto e --fonte-codigo
+     • Trocar a cor das etiquetas ....... --etiqueta-teal-*, -ambar-*, -violeta-*
+     • Arredondar mais ou menos ......... border-radius em .cartao, .botao, .filtro
+     • Deixar o site mais largo/estreito . max-width em .container
+     • Clarear/escurecer ................ o bloco :root[data-tema='light'] (aula 36)
+     • NÃO mudam com o tema (cores fixas): .janela, .trecho-codigo, .cod-*
+       e o texto branco do .chamada.
+
+   Mapa do arquivo
+     1. Tema (cores escuras e claras)      8. Projetos (filtros e cartões)
+     2. Base (reset, texto, foco)          9. Formulário
+     3. Layout (container, seções)        10. Estados (carregando, erro, vazio)
+     4. Cabeçalho e menu                  11. Detalhe, 404 e chamada
+     5. Botões                            12. Rodapé e botão de topo
+     6. Cartões e etiquetas               13. Telas pequenas (celular)
+     7. Início (hero, sobre, acordeão)
+   ========================================================================== */
+
+/* 1. TEMA ------------------------------------------------------------------
+   Todas as cores moram em variáveis. O tema escuro é o padrão.
+   Na aula 36, o React troca o atributo data-tema="light" para clarear. */
+:root {
+  color-scheme: dark;
+
+  /* ---- LETRAS ---- */
+  /* LETRA DOS TEXTOS (Space Grotesk). Mudar troca a fonte do site todo:
+     parágrafos, títulos, menu, nome do Hero... (só não afeta o que usa
+     --fonte-codigo). A fonte nova precisa estar carregada no <link> do Google
+     Fonts do index.html. */
+  --fonte-texto: 'Space Grotesk', system-ui, sans-serif;
+  /* LETRA "DE CÓDIGO" (JetBrains Mono). Mudar troca a fonte de: logo e menu
+     (Header), botões (Button, Hero), etiquetas (Badge), status/cargo e janela
+     de código do Hero (Hero), etiqueta-secao e rotulo (Home), rodapé (Footer),
+     filtros e busca (ListaProjetos), campos do formulário (Contato). */
+  --fonte-codigo: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+
+  /* ---- FUNDOS ---- */
+  /* FUNDO DA PÁGINA. Mudar altera: o fundo do site inteiro (body) e o final do
+     degradê do Hero, do CabecalhoPagina e da NotFound. */
+  --fundo: #0b0f17;
+  /* FUNDO DAS SEÇÕES ALTERNADAS. Mudar altera só a faixa "Onde estudei" da Home
+     (Secao com alternada, aula 30), que fica de uma cor diferente da seção
+     vizinha. */
+  --fundo-2: #0e1320;
+  /* FUNDO DOS CARTÕES (a "superfície" que fica por cima do fundo). Mudar
+     altera: Card/CardProjeto (aula 29), Formacao (aula 30), painel de filtros
+     do ListaProjetos (aula 31), formulário e caixas do Contato/ProjetoDetalhe
+     (aula 32), Carregando (aula 35) e o menu aberto no celular (Header, aula
+     30). */
+  --superficie: #121826;
+  /* FUNDO DO CABEÇALHO FIXO. Mudar altera a cor da barra do Header (aula 29). É
+     semitransparente: o conteúdo aparece borrado por trás quando você rola a
+     página. */
+  --cabecalho-fundo: rgba(11, 15, 23, 0.88);
+
+  /* ---- CORES DE TEXTO ---- */
+  /* COR DOS TÍTULOS. Mudar altera: h1/h2/h3 (nome do Hero, títulos das seções,
+     títulos dos cartões), logo do Header, texto do botão contorno, nome de cada
+     item da Formacao e os valores da coluna "Outros caminhos" do Contato. */
+  --titulo: #ffffff;
+  /* COR DO TEXTO NORMAL. Mudar altera: o texto do body, o texto do Perfil
+     ("Quem sou eu"), o texto digitado nos campos (Contato, busca da
+     ListaProjetos), botão contorno, botão de tema/menu, filtros, botão curtir e
+     o texto do ProjetoDetalhe. */
+  --texto: #e6eaf2;
+  /* TEXTO UM POUCO MAIS APAGADO QUE --texto. Mudar altera só: a frase de resumo
+     do Hero (hero__resumo) e o conteúdo aberto de cada item da Formacao. */
+  --texto-suave: #c3ccdc;
+  /* TEXTO SECUNDÁRIO (cinza). Mudar altera: descrição dos cartões
+     (CardProjeto), cargo do Hero, rótulos pequenos (rotulo), links do menu
+     (Header), textos do rodapé (Footer), subtítulo do CabecalhoPagina, contador
+     de resultados da ListaProjetos e o ícone do acordeão. */
+  --texto-fraco: #9aa6bc;
+
+  /* ---- COR PRINCIPAL (teal) E BOTÕES ---- */
+  /* COR PRINCIPAL (teal). É a forma mais rápida de mudar a "cara" do site.
+     Mudar altera: fundo do botão primário (Button, Hero, Home, NotFound,
+     ProjetoDetalhe), bolinha do status do Hero, filtro ativo
+     (FiltroTecnologias), botão de topo (BotaoTopo), palavra colorida da chamada
+     (Home) e o link "pular para o conteúdo" (App). */
+  --destaque: #5eead4;
+  /* COR PRINCIPAL AO PASSAR O MOUSE (mais clara). Mudar altera: botão primário
+     e botão de topo com o mouse em cima, e qualquer link (a:hover). */
+  --destaque-hover: #99f6e4;
+  /* COR PRINCIPAL QUANDO USADA EM TEXTO E LINHAS (no tema claro é mais escura,
+     para dar contraste). Mudar altera: links, ponto colorido do logo, do nome
+     (Hero) e dos títulos de seção, etiqueta-secao ("01 / sobre"), "//" do
+     cargo, link ativo do menu, anel de foco do teclado, spinner, ícone de
+     sucesso e endereço da rota. */
+  --destaque-texto: #5eead4;
+  /* COR DO TEXTO QUE FICA SOBRE A COR PRINCIPAL. Mudar altera: letras (e
+     ícones) do botão primário, do filtro ativo, do botão de topo e do link
+     "pular para o conteúdo". */
+  --botao-texto: #0b0f17;
+  /* COR PRINCIPAL BEM TRANSPARENTE (fundo suave). Mudar altera: fundo do link
+     ativo do menu (Header), do botão curtir ativo (CardProjeto), da mensagem de
+     sucesso (Contato), brilho do campo de busca ao clicar e trilho do spinner. */
+  --destaque-suave: rgba(94, 234, 212, 0.1);
+  /* BORDA NA COR PRINCIPAL (meio transparente). Mudar altera a borda de: link
+     ativo do menu (Header), curtir ativo (CardProjeto) e mensagem de sucesso
+     (Contato). */
+  --destaque-borda: rgba(94, 234, 212, 0.45);
+
+  /* ---- BORDAS ---- */
+  /* BORDA DISCRETA. Mudar altera as linhas finas: contorno dos cartões, linha
+     de baixo do Header, linhas entre seções (Secao), linha do topo do Footer,
+     linhas do acordeão (Formacao), base do Hero e do CabecalhoPagina. */
+  --borda: rgba(255, 255, 255, 0.1);
+  /* BORDA MAIS VISÍVEL. Mudar altera o contorno de: botão contorno, botão de
+     tema e de menu, filtros, botão curtir, campos de texto e busca, caixa
+     tracejada de "nenhum projeto" e status do Hero. */
+  --borda-forte: rgba(255, 255, 255, 0.18);
+
+  /* ---- ERRO (vermelho) ---- */
+  /* VERMELHO DE ERRO (forte). Mudar altera a borda do campo inválido e o texto
+     de erro que aparece embaixo dele (CampoFormulario, aula 33). */
+  --erro: #fb7185;
+  /* TEXTO DO ALERTA DE ERRO. Mudar altera a cor das letras do alerta vermelho
+     (MensagemErro, aula 35; erro do Contato, aula 33). */
+  --erro-texto: #fda4af;
+  /* FUNDO VERMELHO TRANSPARENTE. Mudar altera o fundo do alerta de erro
+     (MensagemErro, Contato) e o halo em volta do campo inválido
+     (CampoFormulario). */
+  --erro-suave: rgba(251, 113, 133, 0.1);
+  /* BORDA VERMELHA do alerta de erro (MensagemErro, Contato). */
+  --erro-borda: rgba(251, 113, 133, 0.45);
+
+  /* ---- CAMPOS E CARREGANDO ---- */
+  /* FUNDO DOS CAMPOS. Mudar altera o fundo dos campos de texto do formulário
+     (CampoFormulario, aula 33) e da caixa de busca (ListaProjetos, aula 31). */
+  --campo-fundo: #0e1320;
+  /* COR DAS BARRINHAS CINZAS de "carregando" (esqueleto do componente
+     Carregando, aula 35). */
+  --esqueleto: rgba(255, 255, 255, 0.07);
+
+  /* ---- DECORAÇÕES DE FUNDO ---- */
+  /* COR DO BRILHO no canto do topo. Mudar altera o degradê (da cor até --fundo)
+     do Hero (aula 29), do CabecalhoPagina e da NotFound (aula 32). */
+  --degrade-hero: #10303a;
+  /* COR DO "</>" GIGANTE quase invisível no fundo do Hero (Hero, aula 29). */
+  --glifo: rgba(94, 234, 212, 0.05);
+  /* FUNDO DO BLOCO "VAMOS CONVERSAR" (chamada da Home, aula 30). No tema claro
+     continua escuro de propósito, para o texto branco ler bem. */
+  --contato-fundo: #10303a;
+
+  /* ---- ETIQUETAS (Badge) ---- */
+  /* ETIQUETA TEAL: cor do texto. Mudar altera o texto das etiquetas com
+     cor="teal" (Badge, aula 29). Em data/tecnologias.js, hoje só React é teal. */
+  --etiqueta-teal-cor: #5eead4;
+  /* ETIQUETA TEAL: cor da borda (Badge com cor="teal", aula 29). */
+  --etiqueta-teal-borda: rgba(94, 234, 212, 0.45);
+  /* ETIQUETA TEAL: cor do fundo (Badge com cor="teal", aula 29). */
+  --etiqueta-teal-fundo: rgba(94, 234, 212, 0.1);
+  /* ETIQUETA ÂMBAR: cor do texto. Mudar altera as etiquetas com cor="ambar"
+     (Badge, aula 29). Em data/tecnologias.js, HTML e JavaScript. */
+  --etiqueta-ambar-cor: #fbbf77;
+  /* ETIQUETA ÂMBAR: cor da borda (Badge com cor="ambar", aula 29). */
+  --etiqueta-ambar-borda: rgba(251, 191, 119, 0.45);
+  /* ETIQUETA ÂMBAR: cor do fundo (Badge com cor="ambar", aula 29). */
+  --etiqueta-ambar-fundo: rgba(251, 191, 119, 0.1);
+  /* ETIQUETA VIOLETA: cor do texto. Mudar altera as etiquetas com cor="violeta"
+     (Badge, aula 29). Em data/tecnologias.js, CSS. */
+  --etiqueta-violeta-cor: #c4b5fd;
+  /* ETIQUETA VIOLETA: cor da borda (Badge com cor="violeta", aula 29). */
+  --etiqueta-violeta-borda: rgba(196, 181, 253, 0.45);
+  /* ETIQUETA VIOLETA: cor do fundo (Badge com cor="violeta", aula 29). */
+  --etiqueta-violeta-fundo: rgba(196, 181, 253, 0.1);
+  /* ETIQUETA NEUTRA: cor do texto. Mudar altera as etiquetas sem cor definida
+     (Badge, aula 29), pois a etiqueta padrão é a neutra. */
+  --etiqueta-neutra-cor: #e6eaf2;
+  /* ETIQUETA NEUTRA: cor da borda (Badge sem cor, aula 29). */
+  --etiqueta-neutra-borda: rgba(255, 255, 255, 0.18);
+  /* FUNDO CLARINHO TRANSPARENTE usado nas etiquetas neutras (Badge) e também no
+     fundo do botão de tema e de menu (Header), dos filtros (FiltroTecnologias)
+     e do status do Hero. */
+  --etiqueta-neutra-fundo: rgba(255, 255, 255, 0.04);
+
+  /* ---- SOMBRAS E BRILHOS ---- */
+  /* SOMBRA DOS CARTÕES. Mudar altera a sombra de baixo de: Card/CardProjeto
+     (aula 29), Formacao, painel de filtros, formulário do Contato, cartões do
+     ProjetoDetalhe, Carregando e o trecho de código da NotFound. */
+  --sombra-cartao: 0 24px 60px -28px rgba(0, 0, 0, 0.65);
+  /* BRILHO (halo teal) em volta de blocos de destaque. Mudar altera: bloco
+     "Vamos conversar" (chamada da Home) e cartões com cartao--brilho (Contato,
+     ProjetoDetalhe). A janela de código do Hero tem o mesmo brilho, mas com cor
+     fixa. */
+  --brilho: 0 0 0 1px rgba(94, 234, 212, 0.22),
+    0 30px 70px -30px rgba(94, 234, 212, 0.4);
+  /* BRILHO EM VOLTA DO BOTÃO PRIMÁRIO. Mudar altera a luz embaixo de: botão
+     primário (Button, Hero...), filtro ativo (FiltroTecnologias) e botão de
+     topo (BotaoTopo). */
+  --brilho-botao: 0 0 0 1px rgba(94, 234, 212, 0.35),
+    0 16px 40px -18px rgba(94, 234, 212, 0.55);
+}
+
+/* Mesmas variáveis do tema escuro, só com valores para fundo claro: o papel de cada
+   uma está descrito nos comentários do bloco :root acima. Só comentei o que difere. */
+:root[data-tema='light'] {
+  color-scheme: light;
+
+  /* ---- FUNDOS ---- */
+  --fundo: #f4fbfa;
+  --fundo-2: #e6f4f2;
+  --superficie: #ffffff;
+  --cabecalho-fundo: rgba(244, 251, 250, 0.92);
+
+  /* ---- CORES DE TEXTO ---- */
+  --titulo: #0b1f24;
+  --texto: #1e3a40;
+  --texto-suave: #2d4a50;
+  --texto-fraco: #466468;
+
+  /* ---- COR PRINCIPAL (teal) E BOTÕES ---- */
+  /* --destaque: no claro é um teal um pouco mais forte, para aparecer no fundo branco */
+  --destaque: #2dd4bf;
+  --destaque-hover: #5eead4;
+  /* --destaque-texto: no claro é um teal ESCURO, senão o texto some no fundo claro */
+  --destaque-texto: #0f766e;
+  /* --botao-texto: texto escuro sobre o teal */
+  --botao-texto: #0b1f24;
+  --destaque-suave: rgba(45, 212, 191, 0.18);
+  --destaque-borda: rgba(15, 118, 110, 0.4);
+
+  /* ---- BORDAS ---- */
+  --borda: rgba(15, 59, 64, 0.12);
+  --borda-forte: rgba(15, 59, 64, 0.22);
+
+  /* ---- ERRO (vermelho) ---- */
+  --erro: #be123c;
+  --erro-texto: #9f1239;
+  --erro-suave: rgba(190, 18, 60, 0.08);
+  --erro-borda: rgba(190, 18, 60, 0.4);
+
+  /* ---- CAMPOS E CARREGANDO ---- */
+  --campo-fundo: #f4fbfa;
+  --esqueleto: rgba(15, 59, 64, 0.08);
+
+  /* ---- DECORAÇÕES DE FUNDO ---- */
+  --degrade-hero: #c4f1ea;
+  /* --glifo: o "</>" do Hero, agora numa versão escura bem suave */
+  --glifo: rgba(15, 118, 110, 0.07);
+  /* --contato-fundo: continua ESCURO de propósito (bloco "Vamos conversar" da Home) */
+  --contato-fundo: #0f3b40;
+
+  /* ---- ETIQUETAS (Badge) ---- */
+  --etiqueta-teal-cor: #0f766e;
+  --etiqueta-teal-borda: rgba(15, 118, 110, 0.35);
+  --etiqueta-teal-fundo: rgba(45, 212, 191, 0.18);
+  --etiqueta-ambar-cor: #7a4b00;
+  --etiqueta-ambar-borda: rgba(180, 120, 0, 0.35);
+  --etiqueta-ambar-fundo: rgba(251, 191, 119, 0.35);
+  --etiqueta-violeta-cor: #5b21b6;
+  --etiqueta-violeta-borda: rgba(109, 40, 217, 0.3);
+  --etiqueta-violeta-fundo: rgba(139, 92, 246, 0.14);
+  --etiqueta-neutra-cor: #1e3a40;
+  --etiqueta-neutra-borda: rgba(15, 59, 64, 0.22);
+  --etiqueta-neutra-fundo: rgba(15, 59, 64, 0.04);
+
+  /* ---- SOMBRAS E BRILHOS ---- */
+  /* --sombra-cartao: sombra mais leve e azulada para o fundo claro */
+  --sombra-cartao: 0 24px 60px -30px rgba(15, 59, 64, 0.3);
+  --brilho: 0 0 0 1px rgba(15, 118, 110, 0.25),
+    0 30px 70px -30px rgba(15, 118, 110, 0.35);
+  --brilho-botao: 0 0 0 1px rgba(15, 118, 110, 0.3),
+    0 16px 40px -18px rgba(15, 118, 110, 0.5);
+}
+
+/* 2. BASE ------------------------------------------------------------------ */
+/* *, *::before, *::after
+   O QUE É: Regra de medida: largura e altura passam a incluir o padding e a
+   borda (box-sizing). Evita que as caixas "estourem" o tamanho que você pediu.
+   ONDE: todos os elementos do site.
+   MUDAR: não mexa: muda o cálculo de tamanho de TUDO. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* html
+   O QUE É: Rolagem suave ao clicar em um link de âncora (#projetos, #topo).
+   ONDE: Hero ("ver projetos", "falar comigo", aula 29) e BotaoTopo (aula 34).
+   MUDAR: scroll-behavior: auto → a página "pula" em vez de deslizar. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* body
+   O QUE É: Estilo padrão do site inteiro: cor de fundo, cor e fonte do texto,
+   tamanho da letra e espaço entre linhas.
+   ONDE: a página toda (div #root do index.html).
+   MUDAR: background → fundo do site (--fundo); color → cor do texto (--texto);
+      font-size → tamanho da letra normal; line-height → espaço entre as linhas. */
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte-texto);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* h1, h2, h3, p, ul, dl, dd
+   O QUE É: Zera as margens que o navegador põe por conta própria, para o espaço
+   ser controlado só pelas classes.
+   ONDE: todos os títulos, parágrafos e listas. */
+h1,
+h2,
+h3,
+p,
+ul,
+dl,
+dd {
+  margin: 0;
+}
+
+/* ul
+   O QUE É: Tira as bolinhas e o recuo das listas.
+   ONDE: listas <ul> (lista de etiquetas do CardProjeto, aula 29; menu). */
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+/* h1, h2, h3
+   O QUE É: Cor dos títulos.
+   ONDE: nome do Hero (h1), títulos das seções (h2) e dos cartões (h3).
+   MUDAR: color → var(--titulo). */
+h1,
+h2,
+h3 {
+  color: var(--titulo);
+}
+
+/* a
+   O QUE É: Cor dos links e tira o sublinhado.
+   ONDE: qualquer <a> ou <Link>: logo e menu (Header), "ver projeto" etc.
+   MUDAR: color → var(--destaque-texto). */
+a {
+  color: var(--destaque-texto);
+  text-decoration: none;
+}
+
+/* a:hover
+   O QUE É: Cor do link quando o mouse passa por cima.
+   ONDE: qualquer link.
+   MUDAR: color → var(--destaque-hover). */
+a:hover {
+  color: var(--destaque-hover);
+}
+
+/* button
+   O QUE É: Faz todo <button> usar a fonte e a cor do site e mostra a "mãozinha"
+   ao passar o mouse.
+   ONDE: Button, curtir (CardProjeto), menu-botao (Header), BotaoTema, filtros. */
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* :focus-visible
+   O QUE É: Anel que aparece em volta do item selecionado pelo teclado (tecla
+   Tab). Importante para acessibilidade: não remova.
+   ONDE: qualquer link, botão ou campo.
+   MUDAR: outline → espessura e cor do anel. */
+:focus-visible {
+  outline: 2px solid var(--destaque-texto);
+  outline-offset: 3px;
+}
+
+/* main:focus
+   O QUE É: Tira o anel do <main>, que só recebe foco por código (link "pular
+   para o conteúdo").
+   ONDE: <main> do App (aula 37). */
+main:focus {
+  outline: none;
+}
+
+/* .icone
+   O QUE É: Impede o ícone de ser espremido quando está ao lado de texto dentro
+   de botões.
+   ONDE: todo <Icone> (o componente coloca className="icone" no <svg>), a partir
+      da aula 29. */
+.icone {
+  flex-shrink: 0;
+}
+
+/* .visualmente-oculto
+   O QUE É: Esconde um texto da tela mas deixa os leitores de tela lerem.
+   ONDE: ainda não é usada no portfólio (fica de reserva). */
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* .pular-link
+   O QUE É: Link "Pular para o conteúdo": fica escondido acima da tela e só
+   aparece ao apertar Tab (acessibilidade).
+   ONDE: App (aula 37).
+   MUDAR: top: -80px → posição escondida; background → cor do link ao aparecer
+      (--destaque). */
+.pular-link {
+  position: absolute;
+  left: 16px;
+  top: -80px;
+  z-index: 100;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: var(--destaque);
+  color: var(--botao-texto);
+  font-family: var(--fonte-codigo);
+  font-weight: 700;
+}
+
+/* .pular-link:focus
+   O QUE É: Traz o link para dentro da tela quando ele recebe o foco do teclado.
+   ONDE: App (aula 37).
+   MUDAR: top: 16px → onde ele aparece. */
+.pular-link:focus {
+  top: 16px;
+  color: var(--botao-texto);
+}
+
+/* @media (prefers-reduced-motion: reduce)
+   O QUE É: Para quem pediu "menos movimento" no sistema: desliga a rolagem
+   suave e as animações.
+   ONDE: todo o site (spinner do Carregando, transições dos botões e do
+      acordeão). */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 3. LAYOUT ---------------------------------------------------------------- */
+/* .hero, .secao
+   O QUE É: Quando um link leva até a seção, deixa 64px de folga em cima para o
+   cabeçalho fixo não cobrir o título.
+   ONDE: Hero (#topo) e Secao (#projetos, #contato...), aula 29.
+   MUDAR: 64px → altura do cabeçalho. */
+.hero,
+.secao {
+  scroll-margin-top: 64px;
+}
+
+/* .container
+   O QUE É: Caixa centralizada com largura máxima de 1120px e respiro nas
+   laterais: o "miolo" do site.
+   ONDE: Header, Hero, Secao e Footer (aula 29); CabecalhoPagina e NotFound
+      (aula 32).
+   MUDAR: max-width → largura máxima do site; padding-inline → respiro nas
+      laterais. */
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+/* .secao
+   O QUE É: Uma faixa da página, com espaço em cima e embaixo e uma linha
+   separadora na base.
+   ONDE: Secao (aula 29): "Quem sou eu", "Projetos"...
+   MUDAR: padding-block → espaço em cima e embaixo; border-bottom → linha
+      separadora (cor --borda). */
+.secao {
+  padding-block: 88px;
+  border-bottom: 1px solid var(--borda);
+}
+
+/* .cabecalho-pagina + .secao
+   O QUE É: Quando a seção vem logo depois do título da página, diminui o espaço
+   de cima.
+   ONDE: Secao logo abaixo do CabecalhoPagina (Projetos, ProjetoDetalhe,
+      Contato, aula 32).
+   MUDAR: padding-top → espaço entre o título da página e o conteúdo. */
+.cabecalho-pagina + .secao {
+  padding-top: 48px;
+}
+
+/* .secao--alternada
+   O QUE É: Dá à seção um fundo um pouco diferente, para alternar com as
+   vizinhas.
+   ONDE: Secao com a prop alternada (aula 30): "Onde estudei" da Home.
+   MUDAR: background → var(--fundo-2). */
+.secao--alternada {
+  background: var(--fundo-2);
+}
+
+/* main > .secao:last-child
+   O QUE É: Tira a linha da última seção (o rodapé já tem a sua).
+   ONDE: última Secao dentro do <main>. */
+main > .secao:last-child {
+  border-bottom: 0;
+}
+
+/* .etiqueta-secao
+   O QUE É: Textinho pequeno acima do título da seção, como "01 / sobre".
+   ONDE: Home (aula 29) e CabecalhoPagina (aula 32).
+   MUDAR: color → var(--destaque-texto); font-size → tamanho; margin-bottom →
+      distância até o título. */
+.etiqueta-secao {
+  margin-bottom: 12px;
+  font-family: var(--fonte-codigo);
+  font-size: 0.875rem;
+  color: var(--destaque-texto);
+}
+
+/* .secao__titulo
+   O QUE É: Título grande da seção (o h2).
+   ONDE: Home (aula 29: "Quem sou eu", "Projetos") e ProjetoDetalhe (aula 32).
+   MUDAR: font-size → tamanho do título; margin-bottom → espaço até o conteúdo;
+      letter-spacing → distância entre as letras. */
+.secao__titulo {
+  margin-bottom: 40px;
+  font-size: clamp(2.125rem, 5vw, 2.75rem);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* .secao__titulo::after
+   O QUE É: Desenha o ponto "." colorido no final do título.
+   ONDE: todo .secao__titulo.
+   MUDAR: content → o caractere; color → a cor do ponto. */
+.secao__titulo::after {
+  content: '.';
+  color: var(--destaque-texto);
+}
+
+/* .secao__cabecalho
+   O QUE É: Linha com o título da seção à esquerda e um link ou botão à direita.
+   ONDE: Home (aula 32): "Em destaque" + "ver todos os projetos".
+   MUDAR: justify-content → alinhamento; margin-bottom → espaço até os cartões. */
+.secao__cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 44px;
+}
+
+/* .secao__cabecalho .secao__titulo
+   O QUE É: Dentro do secao__cabecalho, o título fica sem margem de baixo. */
+.secao__cabecalho .secao__titulo {
+  margin-bottom: 0;
+}
+
+/* .duas-colunas
+   O QUE É: Layout de 2 colunas (a da esquerda é o dobro da direita). No celular
+   vira 1 coluna.
+   ONDE: ProjetoDetalhe (aula 32) e Contato (aula 33).
+   MUDAR: grid-template-columns: 2fr 1fr → proporção; gap → espaço entre as
+      colunas. */
+.duas-colunas {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+/* .coluna
+   O QUE É: Pilha vertical de blocos com 24px entre eles.
+   ONDE: coluna da direita do ProjetoDetalhe (aula 32) e do Contato (aula 33).
+   MUDAR: gap → espaço entre os blocos. */
+.coluna {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* .grade-cartoes
+   O QUE É: Grade de cartões: 3 por linha (2 em tablet e 1 no celular).
+   ONDE: Home (aula 29: os CardProjeto), ListaProjetos (aula 31),
+      ProjetosDestaque e Carregando (aula 35).
+   MUDAR: repeat(3, ...) → quantos cartões por linha; gap → espaço entre os
+      cartões. */
+.grade-cartoes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* 4. CABEÇALHO E MENU ------------------------------------------------------ */
+/* .cabecalho
+   O QUE É: Barra do topo, fixa (fica grudada ao rolar), com fundo
+   semitransparente e borrado.
+   ONDE: Header (aula 29).
+   MUDAR: background → var(--cabecalho-fundo); backdrop-filter → quanto borra o
+      que passa por trás; z-index → fica por cima de tudo. */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--cabecalho-fundo);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--borda);
+}
+
+/* .cabecalho__linha
+   O QUE É: Linha dentro da barra: logo à esquerda, menu e botões à direita.
+   ONDE: Header (aula 29).
+   MUDAR: padding-block → altura da barra. */
+.cabecalho__linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 12px;
+}
+
+/* .logo
+   O QUE É: O nome/logo no canto esquerdo da barra.
+   ONDE: Header (aula 29).
+   MUDAR: font-size → tamanho; color → cor do nome. */
+.logo {
+  font-family: var(--fonte-codigo);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--titulo);
+}
+
+/* .logo:hover
+   O QUE É: Mantém o logo da mesma cor ao passar o mouse (não vira a cor de
+   link).
+   ONDE: Header (aula 29). */
+.logo:hover {
+  color: var(--titulo);
+}
+
+/* .logo span
+   O QUE É: O "_" colorido no fim do logo (~/usuario_), como um cursor de
+   terminal.
+   ONDE: Header (aula 29).
+   MUDAR: color → var(--destaque-texto). */
+.logo span {
+  color: var(--destaque-texto);
+}
+
+/* .menu
+   O QUE É: Linha dos links do menu e do botão de tema.
+   ONDE: Header (aula 30); o BotaoTema fica dentro dele (aula 36).
+   MUDAR: gap → espaço entre os links; font-size → tamanho das letras do menu. */
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--fonte-codigo);
+  font-size: 0.875rem;
+}
+
+/* .menu__link
+   O QUE É: Cada link do menu (formato de pílula) — Início, Projetos, Contato.
+   ONDE: Header (aula 30).
+   MUDAR: padding → tamanho da pílula; color → cor do link parado
+      (--texto-fraco). */
+.menu__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--texto-fraco);
+}
+
+/* .menu__link:hover
+   O QUE É: Cor do link do menu ao passar o mouse.
+   ONDE: Header (aula 30). */
+.menu__link:hover {
+  color: var(--texto);
+}
+
+/* .menu__link--ativo
+   O QUE É: Link da página em que você está (fundo e borda coloridos). O NavLink
+   do React Router põe esta classe sozinho.
+   ONDE: Header (aula 32).
+   MUDAR: color, background e border-color → aparência do link ativo. */
+.menu__link--ativo {
+  color: var(--destaque-texto);
+  background: var(--destaque-suave);
+  border-color: var(--destaque-borda);
+}
+
+/* .menu-botao, .botao-tema
+   O QUE É: Botão redondo de 44px com um ícone dentro: o "hambúrguer" do menu e
+   o botão de tema.
+   ONDE: Header (menu-botao, aula 30) e BotaoTema (botao-tema, aula 36).
+   MUDAR: width/height → tamanho do botão; border → contorno (--borda-forte). */
+.menu-botao,
+.botao-tema {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--borda-forte);
+  border-radius: 50%;
+  background: var(--etiqueta-neutra-fundo);
+  color: var(--texto);
+}
+
+/* .menu-botao
+   O QUE É: Escondido no computador; só aparece no celular (veja o @media de
+   720px no fim).
+   ONDE: Header (aula 30). */
+.menu-botao {
+  display: none;
+}
+
+/* .botao-tema__rotulo
+   O QUE É: Texto do botão de tema: escondido no computador, aparece no celular
+   dentro do menu.
+   ONDE: BotaoTema (aula 36). */
+.botao-tema__rotulo {
+  display: none;
+}
+
+/* 5. BOTÕES ---------------------------------------------------------------- */
+/* .botao
+   O QUE É: Base de todos os botões: formato de pílula, tamanho, fonte e
+   animação suave de cor. Sozinha não pinta nada: use junto com --primario ou
+   --contorno.
+   ONDE: Button (aula 29), Hero (aula 29), links-botão de Home, NotFound e
+      ProjetoDetalhe (aula 32).
+   MUDAR: min-height e padding → tamanho; border-radius → arredondado; font-size
+      → letra do botão. */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 26px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: var(--fonte-codigo);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-align: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+/* .botao--primario
+   O QUE É: Botão principal: fundo na cor de destaque (teal) com brilho embaixo.
+   ONDE: Button (aula 29), Hero "ver projetos" (aula 29), chamada da Home (aula
+      30), NotFound e ProjetoDetalhe (aula 32).
+   MUDAR: background → var(--destaque); color → var(--botao-texto); box-shadow →
+      brilho. */
+.botao--primario {
+  background: var(--destaque);
+  color: var(--botao-texto);
+  box-shadow: var(--brilho-botao);
+}
+
+/* .botao--primario:hover
+   O QUE É: Botão principal com o mouse em cima: fundo mais claro.
+   ONDE: os mesmos botões primários.
+   MUDAR: background → var(--destaque-hover). */
+.botao--primario:hover {
+  background: var(--destaque-hover);
+  color: var(--botao-texto);
+}
+
+/* .botao--contorno
+   O QUE É: Botão secundário: fundo transparente e só o contorno.
+   ONDE: Button variante="contorno" (aula 30), Hero "falar comigo" (aula 29),
+      NotFound (aula 32).
+   MUDAR: border-color → cor do contorno; color → cor do texto. */
+.botao--contorno {
+  background: transparent;
+  border-color: var(--borda-forte);
+  color: var(--texto);
+  font-weight: 600;
+}
+
+/* .botao--contorno:hover
+   O QUE É: Botão contorno com o mouse em cima: contorno e texto mais fortes. */
+.botao--contorno:hover {
+  border-color: var(--texto-fraco);
+  color: var(--titulo);
+}
+
+/* .botao--cheio
+   O QUE É: Faz o botão ocupar 100% da largura.
+   ONDE: ProjetoDetalhe (aula 32): botão "ver no GitHub →" no cartão "Código".
+   MUDAR: width → largura. */
+.botao--cheio {
+  width: 100%;
+}
+
+/* 6. CARTÕES E ETIQUETAS --------------------------------------------------- */
+/* .cartao
+   O QUE É: O cartão: caixa com fundo, borda arredondada, sombra e espaço
+   interno. Os filhos ficam empilhados.
+   ONDE: Card (aula 29), Formacao (aula 30), painel de filtros (aula 31),
+      formulário e caixas do Contato e ProjetoDetalhe (aula 32), Carregando
+      (aula 35).
+   MUDAR: background → var(--superficie); border-radius → arredondado; padding →
+      espaço interno; box-shadow → sombra. */
+.cartao {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  padding: 28px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 20px;
+  box-shadow: var(--sombra-cartao);
+}
+
+/* .cartao--estreito
+   O QUE É: Cartão mais estreito (máximo 480px) e sem altura forçada.
+   ONDE: Contato (aula 32: o cartão simples de e-mail; na aula 33 a página ganha
+      o formulário e esta classe deixa de ser usada).
+   MUDAR: max-width → largura máxima. */
+.cartao--estreito {
+  max-width: 480px;
+  height: auto;
+}
+
+/* .cartao--brilho
+   O QUE É: Cartão com o halo colorido em volta, para destacar.
+   ONDE: Contato (aula 32: cartão de e-mail; aula 33: "Outros caminhos") e
+      ProjetoDetalhe (aula 32: cartão "Endereço").
+   MUDAR: box-shadow → var(--brilho). */
+.cartao--brilho {
+  box-shadow: var(--brilho), var(--sombra-cartao);
+}
+
+/* .cartao h3
+   O QUE É: Título do cartão.
+   ONDE: CardProjeto (aula 29).
+   MUDAR: font-size → tamanho do título. */
+.cartao h3 {
+  font-size: 1.375rem;
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+/* .cartao > .botao, .cartao > .lista-etiquetas
+   O QUE É: Botões e listas de etiquetas dentro do cartão não esticam: ficam do
+   tamanho do conteúdo.
+   ONDE: Card com Button ou lista de Badge dentro. */
+.cartao > .botao,
+.cartao > .lista-etiquetas {
+  align-self: flex-start;
+}
+
+/* .cartao h3 a
+   O QUE É: Quando o título do cartão é um link, ele mantém a cor de título.
+   ONDE: CardProjeto (aula 32). */
+.cartao h3 a {
+  color: var(--titulo);
+}
+
+/* .cartao__descricao
+   O QUE É: Texto de descrição do cartão, em cinza.
+   ONDE: CardProjeto (aula 29).
+   MUDAR: color → var(--texto-fraco); font-size → tamanho. */
+.cartao__descricao {
+  color: var(--texto-fraco);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+/* .cartao__rodape
+   O QUE É: Linha de baixo do cartão (botão/links), empurrada para o fim do
+   cartão.
+   ONDE: CardProjeto (aula 29).
+   MUDAR: justify-content → alinhamento dos itens. */
+.cartao__rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+/* .cartao .rotulo
+   O QUE É: Rótulo pequeno em MAIÚSCULAS em cima de um bloco de cartão (ex.:
+   "SOBRE O PROJETO").
+   ONDE: Home "Habilidades" (aula 29), ProjetoDetalhe e Contato (aula 32).
+   MUDAR: letter-spacing → distância entre as letras; color →
+      var(--texto-fraco). */
+.cartao .rotulo {
+  margin-bottom: 4px;
+  font-family: var(--fonte-codigo);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--texto-fraco);
+}
+
+/* .etiqueta, .etiqueta--neutra
+   O QUE É: Etiqueta (tag) pequena em formato de pílula. Sozinha ela já é a
+   versão NEUTRA (cinza).
+   ONDE: Badge (aula 29); chips do CabecalhoPagina e de ProjetoDetalhe (aula
+      32).
+   MUDAR: padding → tamanho; font-size → letra; cores vêm de
+      --etiqueta-neutra-*. */
+.etiqueta,
+.etiqueta--neutra {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border: 1px solid var(--etiqueta-neutra-borda);
+  border-radius: 999px;
+  background: var(--etiqueta-neutra-fundo);
+  color: var(--etiqueta-neutra-cor);
+  font-family: var(--fonte-codigo);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* .etiqueta--teal
+   O QUE É: Etiqueta teal (cor do texto, borda e fundo).
+   ONDE: Badge com cor="teal" (aula 29): React.
+   MUDAR: cores → variáveis --etiqueta-teal-*. */
+.etiqueta--teal {
+  color: var(--etiqueta-teal-cor);
+  border-color: var(--etiqueta-teal-borda);
+  background: var(--etiqueta-teal-fundo);
+}
+
+/* .etiqueta--ambar
+   O QUE É: Etiqueta âmbar (laranja).
+   ONDE: Badge com cor="ambar" (aula 29): HTML e JavaScript.
+   MUDAR: cores → variáveis --etiqueta-ambar-*. */
+.etiqueta--ambar {
+  color: var(--etiqueta-ambar-cor);
+  border-color: var(--etiqueta-ambar-borda);
+  background: var(--etiqueta-ambar-fundo);
+}
+
+/* .etiqueta--violeta
+   O QUE É: Etiqueta violeta.
+   ONDE: Badge com cor="violeta" (aula 29): CSS.
+   MUDAR: cores → variáveis --etiqueta-violeta-*. */
+.etiqueta--violeta {
+  color: var(--etiqueta-violeta-cor);
+  border-color: var(--etiqueta-violeta-borda);
+  background: var(--etiqueta-violeta-fundo);
+}
+
+/* .lista-etiquetas
+   O QUE É: Fileira de etiquetas que quebra de linha quando não cabe.
+   ONDE: CardProjeto (aula 29), ProjetoDetalhe (aula 32).
+   MUDAR: gap → espaço entre as etiquetas. */
+.lista-etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* .lista-etiquetas--grande
+   O QUE É: Versão maior da lista de etiquetas (mais espaço entre elas).
+   ONDE: Home "Habilidades" (aula 29).
+   MUDAR: gap → espaço entre as etiquetas. */
+.lista-etiquetas--grande {
+  gap: 10px;
+}
+
+/* .lista-etiquetas--grande .etiqueta
+   O QUE É: Etiquetas maiores dentro da lista grande.
+   ONDE: Home "Habilidades" (aula 29).
+   MUDAR: padding e font-size → tamanho da etiqueta. */
+.lista-etiquetas--grande .etiqueta {
+  padding: 6px 14px;
+  font-size: 0.875rem;
+}
+
+/* .cartao__rodape .botao
+   O QUE É: Botão dentro do rodapé do cartão: um pouco menor e sem brilho.
+   ONDE: CardProjeto (aula 29): botão "Ver projeto".
+   MUDAR: min-height e padding → tamanho do botão. */
+.cartao__rodape .botao {
+  min-height: 44px;
+  padding: 0 20px;
+  box-shadow: none;
+}
+
+/* .link-seta
+   O QUE É: Link com uma seta no final, como "ver detalhes →".
+   ONDE: CardProjeto (aula 32) e Home "ver todos os projetos" (aula 32).
+   MUDAR: font-size → tamanho; gap → espaço entre o texto e a seta. */
+.link-seta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-family: var(--fonte-codigo);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* .curtir
+   O QUE É: Botão de curtir (coração com número).
+   ONDE: CardProjeto (aula 30).
+   MUDAR: border-radius → arredondado; border → contorno; padding → tamanho. */
+.curtir {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--borda-forte);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--texto);
+  font-family: var(--fonte-codigo);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* .curtir--ativo
+   O QUE É: Botão de curtir depois de curtido: fica colorido.
+   ONDE: CardProjeto (aula 30): o React troca a classe quando curtiu === true.
+   MUDAR: color, border-color e background → aparência do botão curtido. */
+.curtir--ativo {
+  color: var(--destaque-texto);
+  border-color: var(--destaque-borda);
+  background: var(--destaque-suave);
+}
+
+/* .curtir--ativo .icone
+   O QUE É: O coração do botão curtido fica PREENCHIDO.
+   ONDE: CardProjeto (aula 30).
+   MUDAR: fill → cor do preenchimento. */
+.curtir--ativo .icone {
+  fill: currentColor;
+}
+
+/* 7. INÍCIO ---------------------------------------------------------------- */
+/* .hero
+   O QUE É: A faixa grande do topo da Home, com um brilho de degradê no canto
+   superior direito.
+   ONDE: Hero (aula 29).
+   MUDAR: background → cor e posição do brilho (--degrade-hero até --fundo). */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(
+    120% 90% at 82% -20%,
+    var(--degrade-hero) 0%,
+    var(--fundo) 60%
+  );
+  border-bottom: 1px solid var(--borda);
+}
+
+/* .hero::before
+   O QUE É: O "</>" gigante e quase invisível desenhado ao fundo do Hero.
+   ONDE: Hero (aula 29).
+   MUDAR: content → o símbolo; color → var(--glifo); font-size → tamanho. */
+.hero::before {
+  content: '</>';
+  position: absolute;
+  right: -3%;
+  bottom: -18%;
+  font-family: var(--fonte-codigo);
+  font-weight: 700;
+  font-size: clamp(240px, 42vw, 600px);
+  line-height: 0.7;
+  color: var(--glifo);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* .hero__linha
+   O QUE É: Linha do Hero: texto à esquerda e janela de código à direita; no
+   celular um fica embaixo do outro.
+   ONDE: Hero (aula 29).
+   MUDAR: gap → espaço entre texto e janela; padding-block → altura do Hero. */
+.hero__linha {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 56px;
+  align-items: center;
+  padding-block: 88px 96px;
+}
+
+/* .hero__texto
+   O QUE É: Coluna da esquerda do Hero (status, nome, cargo, resumo, botões).
+   ONDE: Hero (aula 29). */
+.hero__texto {
+  flex: 999 1 500px;
+  min-width: 0;
+}
+
+/* .hero__status
+   O QUE É: Etiqueta do topo do Hero ("em busca do primeiro estágio"), com
+   bolinha acesa.
+   ONDE: Hero (aula 29).
+   MUDAR: border e background → contorno e fundo da etiqueta. */
+.hero__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  border: 1px solid var(--borda-forte);
+  border-radius: 999px;
+  background: var(--etiqueta-neutra-fundo);
+  font-family: var(--fonte-codigo);
+  font-size: 0.8125rem;
+  color: var(--texto);
+}
+
+/* .hero__status::before
+   O QUE É: A bolinha colorida com brilho na frente do status.
+   ONDE: Hero (aula 29).
+   MUDAR: background e box-shadow → cor da bolinha e do brilho (--destaque). */
+.hero__status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--destaque);
+  box-shadow: 0 0 12px 2px var(--destaque);
+}
+
+/* .hero h1
+   O QUE É: O nome grande do Hero.
+   ONDE: Hero (aula 29).
+   MUDAR: font-size → tamanho do nome; letter-spacing → distância entre as
+      letras. */
+.hero h1 {
+  margin-top: 24px;
+  font-size: clamp(3.5rem, 9vw, 5.75rem);
+  line-height: 0.98;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* .hero h1 span
+   O QUE É: O ponto "." colorido no fim do nome.
+   ONDE: Hero (aula 29).
+   MUDAR: color → var(--destaque-texto). */
+.hero h1 span {
+  color: var(--destaque-texto);
+}
+
+/* .hero__cargo
+   O QUE É: Linha do cargo, em minúsculas, na fonte de código.
+   ONDE: Hero (aula 29).
+   MUDAR: font-size → tamanho; color → var(--texto-fraco). */
+.hero__cargo {
+  margin-top: 24px;
+  text-transform: lowercase;
+  font-family: var(--fonte-codigo);
+  font-size: 1.125rem;
+  color: var(--texto-fraco);
+}
+
+/* .hero__cargo::before
+   O QUE É: O "// " colorido na frente do cargo (como comentário de código).
+   ONDE: Hero (aula 29).
+   MUDAR: content → o símbolo; color → cor dele. */
+.hero__cargo::before {
+  content: '// ';
+  color: var(--destaque-texto);
+}
+
+/* .hero__resumo
+   O QUE É: Frase de resumo embaixo do cargo.
+   ONDE: Hero (aula 29).
+   MUDAR: font-size → tamanho; max-width → largura do parágrafo; color →
+      var(--texto-suave). */
+.hero__resumo {
+  max-width: 520px;
+  margin-top: 20px;
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: var(--texto-suave);
+}
+
+/* .hero__acoes
+   O QUE É: Linha com os dois botões do Hero.
+   ONDE: Hero (aula 29): "ver projetos" e "falar comigo".
+   MUDAR: gap → espaço entre os botões; margin-top → distância do resumo. */
+.hero__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 36px;
+}
+
+/* janela de código: parece um editor e fica escura nos dois temas */
+/* .janela
+   O QUE É: A janela de código falsa (parece um editor). Fica ESCURA nos dois
+   temas: as cores são fixas, não usam variáveis.
+   ONDE: Hero (aula 29).
+   MUDAR: background → cor do "editor"; border-radius → arredondado. */
+.janela {
+  flex: 1 1 360px;
+  min-width: 0;
+  overflow: hidden;
+  background: #121826;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px rgba(94, 234, 212, 0.22),
+    0 30px 70px -30px rgba(94, 234, 212, 0.4);
+}
+
+/* .janela__topo
+   O QUE É: Barra de cima da janela, com os 3 pontinhos e o nome do arquivo.
+   ONDE: Hero (aula 29). */
+.janela__topo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  background: #151c2c;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--fonte-codigo);
+  font-size: 0.8125rem;
+  color: #9aa6bc;
+}
+
+/* .janela__ponto
+   O QUE É: Cada um dos 3 pontinhos da janela.
+   ONDE: Hero (aula 29).
+   MUDAR: width e height → tamanho do pontinho. */
+.janela__ponto {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+/* .janela__ponto:nth-child(1)
+   O QUE É: 1º ponto: vermelho.
+   ONDE: Hero (aula 29).
+   MUDAR: background → cor. */
+.janela__ponto:nth-child(1) {
+  background: #ff5f57;
+}
+
+/* .janela__ponto:nth-child(2)
+   O QUE É: 2º ponto: amarelo.
+   ONDE: Hero (aula 29).
+   MUDAR: background → cor. */
+.janela__ponto:nth-child(2) {
+  background: #febc2e;
+}
+
+/* .janela__ponto:nth-child(3)
+   O QUE É: 3º ponto: verde.
+   ONDE: Hero (aula 29).
+   MUDAR: background → cor. */
+.janela__ponto:nth-child(3) {
+  background: #28c840;
+}
+
+/* .janela__nome
+   O QUE É: Nome do arquivo na barra de cima ("perfil.js").
+   ONDE: Hero (aula 29). */
+.janela__nome {
+  margin-left: 10px;
+}
+
+/* .janela__codigo
+   O QUE É: A área do código dentro da janela (<pre>), com a fonte de código.
+   ONDE: Hero (aula 29).
+   MUDAR: font-size e line-height → letra e espaço entre as linhas; color → cor
+      do código "comum". */
+.janela__codigo {
+  margin: 0;
+  padding: 24px 22px;
+  font-family: var(--fonte-codigo);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #e6eaf2;
+  white-space: pre-wrap;
+}
+
+/* .cod-palavra
+   O QUE É: Cor de uma palavra-chave do código (ex.: export const). Roxo.
+   ONDE: Hero, janela de código (aula 29); NotFound, trecho de código (aula 32).
+   MUDAR: color → cor das palavras-chave. */
+.cod-palavra {
+  color: #c4b5fd;
+}
+
+/* .cod-texto
+   O QUE É: Cor de um texto entre aspas no código. Âmbar.
+   ONDE: Hero, janela de código (aula 29); NotFound (aula 32).
+   MUDAR: color → cor dos textos. */
+.cod-texto {
+  color: #fbbf77;
+}
+
+/* .cod-numero
+   O QUE É: Cor de um número no código. Teal.
+   ONDE: ainda não usada no portfólio (reserva).
+   MUDAR: color → cor dos números. */
+.cod-numero {
+  color: #5eead4;
+}
+
+/* .sobre
+   O QUE É: Seção "Quem sou eu": texto à esquerda (maior) e habilidades à
+   direita. No celular vira 1 coluna.
+   ONDE: Home (aula 29): Perfil + coluna "Habilidades".
+   MUDAR: grid-template-columns: 3fr 2fr → proporção; gap → espaço entre as
+      colunas. */
+.sobre {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 48px;
+  align-items: start;
+}
+
+/* .sobre__texto
+   O QUE É: Texto grande de apresentação.
+   ONDE: Perfil (aula 29).
+   MUDAR: font-size e line-height → tamanho e espaço entre as linhas. */
+.sobre__texto {
+  font-size: 1.3125rem;
+  line-height: 1.65;
+  color: var(--texto);
+}
+
+/* .sobre__texto p + p
+   O QUE É: Espaço entre um parágrafo e o seguinte dentro do Perfil.
+   ONDE: Perfil. */
+.sobre__texto p + p {
+  margin-top: 16px;
+}
+
+/* .sobre__texto .botao
+   O QUE É: Espaço em cima do botão que fica no fim do texto.
+   ONDE: Perfil (aula 30): botão "ler mais / ler menos". */
+.sobre__texto .botao {
+  margin-top: 20px;
+}
+
+/* .acordeao
+   O QUE É: O cartão do acordeão (lista que abre e fecha) de formação: sem
+   espaço interno, cantos cortados.
+   ONDE: Formacao (aula 30), junto com .cartao.
+   MUDAR: max-width → largura do bloco. */
+.acordeao {
+  max-width: 860px;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  height: auto;
+}
+
+/* .acordeao__item + .acordeao__item
+   O QUE É: Linha entre um item do acordeão e o seguinte.
+   ONDE: ItemFormacao (aula 30).
+   MUDAR: border-top → cor/espessura da linha. */
+.acordeao__item + .acordeao__item {
+  border-top: 1px solid var(--borda);
+}
+
+/* .cartao .acordeao__titulo
+   O QUE É: O título (h3) do item herda o tamanho do botão, em vez do tamanho de
+   título do cartão.
+   ONDE: ItemFormacao (aula 30). */
+.cartao .acordeao__titulo {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* .acordeao__botao
+   O QUE É: O botão clicável do item (nome do curso + seta). Ocupa a linha toda.
+   ONDE: ItemFormacao (aula 30).
+   MUDAR: min-height e padding → altura do item; font-size → letra. */
+.acordeao__botao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 64px;
+  padding: 12px 28px;
+  border: 0;
+  background: transparent;
+  color: var(--titulo);
+  font-family: var(--fonte-texto);
+  font-size: 1.1875rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+/* .acordeao__botao .icone
+   O QUE É: A setinha (chevron) do item: cinza quando fechado.
+   ONDE: ItemFormacao (aula 30).
+   MUDAR: color → cor da seta; transition → velocidade do giro. */
+.acordeao__botao .icone {
+  color: var(--texto-fraco);
+  transition: transform 0.2s;
+}
+
+/* .acordeao__botao[aria-expanded='true'] .icone
+   O QUE É: Quando o item está ABERTO: seta colorida e girada 180°. O React
+   troca o aria-expanded.
+   ONDE: ItemFormacao (aula 30).
+   MUDAR: transform: rotate(180deg) → quanto a seta gira. */
+.acordeao__botao[aria-expanded='true'] .icone {
+  color: var(--destaque-texto);
+  transform: rotate(180deg);
+}
+
+/* .acordeao__conteudo
+   O QUE É: A parte que aparece quando o item abre.
+   ONDE: ItemFormacao (aula 30).
+   MUDAR: padding → espaço interno. */
+.acordeao__conteudo {
+  padding: 0 28px 28px;
+}
+
+/* .acordeao__local
+   O QUE É: Linha do local/período (ex.: "UFRB · 2024"), na fonte de código e na
+   cor de destaque.
+   ONDE: ItemFormacao (aula 30).
+   MUDAR: color → cor; font-size → tamanho. */
+.acordeao__local {
+  margin-bottom: 4px;
+  font-family: var(--fonte-codigo);
+  font-size: 0.8125rem;
+  color: var(--destaque-texto);
+}
+
+/* .acordeao__conteudo p:last-child
+   O QUE É: Último parágrafo do conteúdo aberto (a descrição): cor mais suave.
+   ONDE: ItemFormacao (aula 30). */
+.acordeao__conteudo p:last-child {
+  color: var(--texto-suave);
+  font-size: 1rem;
+}
+
+/* .chamada
+   O QUE É: Bloco grande "Vamos conversar?" no fim da Home, com fundo escuro,
+   brilho e botão.
+   ONDE: Home (aula 30; antes de existir a página Home, fica no App).
+   MUDAR: background → var(--contato-fundo); padding → tamanho do bloco;
+      box-shadow → brilho. */
+.chamada {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 56px 52px;
+  background: var(--contato-fundo);
+  border-radius: 20px;
+  box-shadow: var(--brilho);
+}
+
+/* .chamada__texto
+   O QUE É: Coluna de texto da chamada (título e frase).
+   ONDE: Home (aula 30). */
+.chamada__texto {
+  flex: 1 1 400px;
+  min-width: 0;
+}
+
+/* .chamada h2
+   O QUE É: Título da chamada. Sempre BRANCO (o fundo é sempre escuro).
+   ONDE: Home (aula 30).
+   MUDAR: font-size → tamanho; color → cor do título. */
+.chamada h2 {
+  font-size: clamp(2rem, 5vw, 2.875rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+/* .chamada h2 span
+   O QUE É: Palavra colorida do título da chamada.
+   ONDE: Home (aula 30).
+   MUDAR: color → var(--destaque). */
+.chamada h2 span {
+  color: var(--destaque);
+}
+
+/* .chamada p
+   O QUE É: Frase de apoio da chamada.
+   ONDE: Home (aula 30).
+   MUDAR: font-size → tamanho; color → cor. */
+.chamada p {
+  margin-top: 14px;
+  font-size: 1.125rem;
+  color: #e6eaf2;
+}
+
+/* 8. PROJETOS -------------------------------------------------------------- */
+/* .cabecalho-pagina
+   O QUE É: Faixa de título no topo das páginas internas, com brilho no canto.
+   ONDE: CabecalhoPagina (aula 32): Projetos, Detalhe e Contato.
+   MUDAR: background → degradê (--degrade-hero até --fundo). */
+.cabecalho-pagina {
+  background: radial-gradient(
+    120% 140% at 82% -40%,
+    var(--degrade-hero) 0%,
+    var(--fundo) 62%
+  );
+  border-bottom: 1px solid var(--borda);
+}
+
+/* .cabecalho-pagina .container
+   O QUE É: Espaço em cima e embaixo do título da página.
+   ONDE: CabecalhoPagina (aula 32).
+   MUDAR: padding-block → altura da faixa. */
+.cabecalho-pagina .container {
+  padding-block: 64px 56px;
+}
+
+/* .cabecalho-pagina h1
+   O QUE É: Título grande da página.
+   ONDE: CabecalhoPagina (aula 32).
+   MUDAR: font-size → tamanho; letter-spacing → distância entre as letras. */
+.cabecalho-pagina h1 {
+  font-size: clamp(2.75rem, 7vw, 4rem);
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* .cabecalho-pagina h1 span
+   O QUE É: Ponto colorido no fim do título da página.
+   ONDE: CabecalhoPagina (aula 32).
+   MUDAR: color → var(--destaque-texto). */
+.cabecalho-pagina h1 span {
+  color: var(--destaque-texto);
+}
+
+/* .cabecalho-pagina__descricao
+   O QUE É: Frase de descrição embaixo do título da página.
+   ONDE: CabecalhoPagina (aula 32).
+   MUDAR: max-width → largura; color → var(--texto-fraco). */
+.cabecalho-pagina__descricao {
+  max-width: 560px;
+  margin-top: 16px;
+  font-size: 1.1875rem;
+  color: var(--texto-fraco);
+}
+
+/* .cabecalho-pagina__chips
+   O QUE É: Espaço em cima da lista de etiquetas do cabeçalho.
+   ONDE: ProjetoDetalhe (aula 32): etiquetas das tecnologias. */
+.cabecalho-pagina__chips {
+  margin-top: 20px;
+}
+
+/* .migalhas
+   O QUE É: Caminho "Início / Projetos / ..." (breadcrumb).
+   ONDE: ainda não usada no portfólio (reserva). */
+.migalhas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+  font-family: var(--fonte-codigo);
+  font-size: 0.875rem;
+  color: var(--texto-fraco);
+}
+
+/* .migalhas a
+   O QUE É: Links do caminho (migalhas) com altura mínima para tocar no celular.
+   ONDE: ainda não usada (reserva). */
+.migalhas a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* .painel-filtros
+   O QUE É: Cartão que reúne a busca e os filtros (sem altura forçada).
+   ONDE: ListaProjetos (aula 31), junto com .cartao.
+   MUDAR: gap → espaço entre a busca e os filtros. */
+.painel-filtros {
+  gap: 24px;
+  height: auto;
+}
+
+/* .campo-busca
+   O QUE É: Bloco da busca: rótulo em cima, caixa embaixo.
+   ONDE: ListaProjetos (aula 31).
+   MUDAR: max-width → largura da busca. */
+.campo-busca {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 520px;
+}
+
+/* .campo-busca label, .filtros__titulo
+   O QUE É: Rótulo pequeno da busca e título "tecnologia" dos filtros.
+   ONDE: ListaProjetos e FiltroTecnologias (aula 31).
+   MUDAR: font-size e color → letra e cor do rótulo. */
+.campo-busca label,
+.filtros__titulo {
+  font-family: var(--fonte-codigo);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--texto-fraco);
+}
+
+/* .campo-busca__caixa
+   O QUE É: A caixa da busca: lupa + campo de texto dentro de um contorno
+   arredondado.
+   ONDE: ListaProjetos (aula 31).
+   MUDAR: min-height → altura; border-radius → arredondado; background →
+      var(--campo-fundo). */
+.campo-busca__caixa {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 1px solid var(--borda-forte);
+  border-radius: 14px;
+  background: var(--campo-fundo);
+  color: var(--texto-fraco);
+}
+
+/* .campo-busca__caixa:focus-within
+   O QUE É: Quando você clica para digitar: contorno colorido e halo em volta da
+   caixa.
+   ONDE: ListaProjetos (aula 31).
+   MUDAR: border-color e box-shadow → cor do contorno e do halo. */
+.campo-busca__caixa:focus-within {
+  border-color: var(--destaque-texto);
+  box-shadow: 0 0 0 3px var(--destaque-suave);
+}
+
+/* .campo-busca input
+   O QUE É: O campo de texto em si: sem borda, fundo transparente (a caixa é que
+   desenha o contorno).
+   ONDE: ListaProjetos (aula 31).
+   MUDAR: font-size → tamanho do texto digitado. */
+.campo-busca input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--texto);
+  font: inherit;
+  font-size: 1.0625rem;
+}
+
+/* .filtros__titulo
+   O QUE É: Espaço embaixo do título "tecnologia".
+   ONDE: FiltroTecnologias (aula 31). */
+.filtros__titulo {
+  margin-bottom: 12px;
+}
+
+/* .filtros
+   O QUE É: Fileira dos botões de filtro; quebra de linha quando não cabe.
+   ONDE: ListaProjetos e FiltroTecnologias (aula 31).
+   MUDAR: gap → espaço entre os filtros. */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* .filtro
+   O QUE É: Cada botão de filtro (pílula) — "Todas", "React", "CSS"...
+   ONDE: FiltroTecnologias (aula 31).
+   MUDAR: padding → tamanho; border → contorno; background → fundo. */
+.filtro {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--borda-forte);
+  border-radius: 999px;
+  background: var(--etiqueta-neutra-fundo);
+  color: var(--texto);
+  font-family: var(--fonte-codigo);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* .filtro--ativo
+   O QUE É: O filtro selecionado no momento: fundo na cor de destaque. O React
+   troca a classe conforme o estado "selecionada".
+   ONDE: FiltroTecnologias (aula 31).
+   MUDAR: background e color → aparência do filtro ativo. */
+.filtro--ativo {
+  background: var(--destaque);
+  border-color: var(--destaque);
+  color: var(--botao-texto);
+  box-shadow: var(--brilho-botao);
+}
+
+/* .resumo-lista
+   O QUE É: Linha "3 projetos encontrados" acima dos cartões.
+   ONDE: ListaProjetos (aula 31).
+   MUDAR: margin-block → espaço acima e abaixo; font-size → tamanho. */
+.resumo-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-block: 28px 24px;
+  font-family: var(--fonte-codigo);
+  font-size: 0.875rem;
+  color: var(--texto-fraco);
+}
+
+/* .resumo-lista strong
+   O QUE É: O número em destaque dentro do resumo.
+   ONDE: ListaProjetos (aula 31).
+   MUDAR: color → var(--destaque-texto). */
+.resumo-lista strong {
+  color: var(--destaque-texto);
+}
+
+/* 9. FORMULÁRIO ------------------------------------------------------------ */
+/* .formulario
+   O QUE É: Cartão do formulário de contato: campos empilhados com bastante
+   espaço.
+   ONDE: Contato (aula 33).
+   MUDAR: gap → espaço entre os campos; padding → espaço interno. */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 40px;
+  height: auto;
+}
+
+/* .campo
+   O QUE É: Um campo do formulário: rótulo em cima, caixa embaixo (e erro, se
+   houver).
+   ONDE: CampoFormulario (aula 33).
+   MUDAR: gap → espaço entre rótulo, caixa e erro. */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* .campo__rotulo
+   O QUE É: Rótulo do campo ("Nome", "E-mail"...).
+   ONDE: CampoFormulario (aula 33).
+   MUDAR: font-size e color → letra e cor. */
+.campo__rotulo {
+  font-family: var(--fonte-codigo);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--texto);
+}
+
+/* .campo__entrada
+   O QUE É: A caixa de digitar (input ou textarea).
+   ONDE: CampoFormulario (aula 33).
+   MUDAR: min-height → altura; border-radius → arredondado; background →
+      var(--campo-fundo); font-size → letra digitada. */
+.campo__entrada {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 1px solid var(--borda-forte);
+  border-radius: 14px;
+  background: var(--campo-fundo);
+  color: var(--texto);
+  font: inherit;
+  font-size: 1.0625rem;
+}
+
+/* textarea.campo__entrada
+   O QUE É: Ajuste do campo de mensagem (textarea): mais alto e só estica na
+   vertical.
+   ONDE: CampoFormulario (aula 33): campo "Mensagem".
+   MUDAR: min-height → altura mínima. */
+textarea.campo__entrada {
+  padding: 14px 16px;
+  min-height: 140px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+/* .campo__entrada:focus
+   O QUE É: Anel colorido em volta do campo quando você clica nele.
+   ONDE: CampoFormulario (aula 33).
+   MUDAR: outline → espessura e cor do anel. */
+.campo__entrada:focus {
+  outline: 2px solid var(--destaque-texto);
+  outline-offset: 2px;
+}
+
+/* .campo__entrada--erro
+   O QUE É: Campo com erro: borda vermelha e halo. O React põe a classe quando a
+   validação falha.
+   ONDE: CampoFormulario (aula 33).
+   MUDAR: border-color e box-shadow → cor do erro (--erro). */
+.campo__entrada--erro {
+  border-color: var(--erro);
+  box-shadow: 0 0 0 3px var(--erro-suave);
+}
+
+/* .campo__erro
+   O QUE É: Mensagem de erro embaixo do campo (com ícone de alerta).
+   ONDE: CampoFormulario (aula 33).
+   MUDAR: color → var(--erro); font-size → tamanho. */
+.campo__erro {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--erro);
+}
+
+/* .formulario__rodape
+   O QUE É: Linha do fim do formulário: botão "Enviar" + dica.
+   ONDE: Contato (aula 33).
+   MUDAR: gap → espaço entre o botão e a dica. */
+.formulario__rodape {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+/* .formulario__dica
+   O QUE É: Dica pequena ao lado do botão enviar.
+   ONDE: Contato (aula 33).
+   MUDAR: font-size e color → letra e cor. */
+.formulario__dica {
+  font-family: var(--fonte-codigo);
+  font-size: 0.8125rem;
+  color: var(--texto-fraco);
+}
+
+/* .dados__rotulo
+   O QUE É: Rótulo pequeno dos dados de contato ("e-mail", "cidade").
+   ONDE: Contato (aula 33): cartão "Outros caminhos".
+   MUDAR: color → var(--texto-fraco). */
+.dados__rotulo {
+  font-family: var(--fonte-codigo);
+  font-size: 0.8125rem;
+  color: var(--texto-fraco);
+}
+
+/* .dados__valor
+   O QUE É: O valor do dado de contato, em destaque.
+   ONDE: Contato (aula 33).
+   MUDAR: font-size → tamanho; color → var(--titulo). */
+.dados__valor {
+  margin-bottom: 16px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--titulo);
+}
+
+/* .nota-codigo
+   O QUE É: Notinha pequena na fonte de código explicando o que o React faz na
+   tela.
+   ONDE: ProjetoDetalhe e Contato (aula 32).
+   MUDAR: font-size → tamanho; color → var(--texto-fraco). */
+.nota-codigo {
+  font-family: var(--fonte-codigo);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--texto-fraco);
+}
+
+/* .nota-codigo code
+   O QUE É: Trecho de código dentro da notinha, colorido.
+   ONDE: ProjetoDetalhe e Contato (aula 32).
+   MUDAR: color → var(--destaque-texto). */
+.nota-codigo code {
+  color: var(--destaque-texto);
+}
+
+/* 10. ESTADOS -------------------------------------------------------------- */
+/* .alerta
+   O QUE É: Caixa de aviso (base): ícone + texto, com borda arredondada. Use
+   junto com --erro ou --sucesso.
+   ONDE: MensagemErro (aula 35), Contato (aula 33).
+   MUDAR: padding → espaço interno; border-radius → arredondado. */
+.alerta {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px 20px;
+  border: 1px solid;
+  border-radius: 14px;
+  font-weight: 500;
+}
+
+/* .alerta--erro
+   O QUE É: Aviso de erro: vermelho.
+   ONDE: MensagemErro (aula 35) e erro do Contato (aula 33).
+   MUDAR: color, border-color e background → variáveis --erro-*. */
+.alerta--erro {
+  color: var(--erro-texto);
+  border-color: var(--erro-borda);
+  background: var(--erro-suave);
+}
+
+/* .alerta--sucesso
+   O QUE É: Aviso de sucesso: na cor de destaque (teal).
+   ONDE: Contato (aula 33): "Mensagem enviada!" com o ícone check.
+   MUDAR: color, border-color e background → variáveis --destaque-*. */
+.alerta--sucesso {
+  color: var(--destaque-texto);
+  border-color: var(--destaque-borda);
+  background: var(--destaque-suave);
+}
+
+/* .alerta__conteudo
+   O QUE É: Coluna de texto ao lado do ícone do alerta (título, texto e botão).
+   ONDE: MensagemErro (aula 35) e Contato (aula 33).
+   MUDAR: gap → espaço entre as linhas. */
+.alerta__conteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* .alerta__conteudo p
+   O QUE É: Parágrafos do alerta voltam para a cor de texto normal.
+   ONDE: MensagemErro e Contato.
+   MUDAR: color → cor do texto do alerta. */
+.alerta__conteudo p {
+  color: var(--texto);
+  font-weight: 400;
+}
+
+/* .alerta__titulo
+   O QUE É: Título do alerta ("Mensagem enviada!" no Contato; a mensagem de erro
+   no MensagemErro).
+   ONDE: MensagemErro (aula 35) e Contato (aula 33).
+   MUDAR: font-size → tamanho do título. */
+.alerta__titulo {
+  font-size: 1.1875rem;
+  font-weight: 600;
+}
+
+/* .carregando
+   O QUE É: Bloco da tela de carregamento: spinner + cartões fantasmas.
+   ONDE: Carregando (aula 35).
+   MUDAR: gap → espaço entre a linha do spinner e os cartões. */
+.carregando {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* .carregando__linha
+   O QUE É: Linha com o spinner e o texto "Carregando...".
+   ONDE: Carregando (aula 35).
+   MUDAR: font-size → tamanho do texto. */
+.carregando__linha {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--titulo);
+}
+
+/* .spinner
+   O QUE É: A rodinha que gira.
+   ONDE: Carregando (aula 35).
+   MUDAR: width/height → tamanho; border-top-color → cor da parte que gira;
+      animation → velocidade (0.8s). */
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 4px solid var(--destaque-suave);
+  border-top-color: var(--destaque-texto);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+/* @keyframes girar
+   O QUE É: Animação do spinner: dá uma volta completa (360°).
+   ONDE: Carregando (aula 35). */
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* .esqueleto
+   O QUE É: Barrinha cinza que imita um texto ainda não carregado ("esqueleto").
+   ONDE: Carregando (aula 35).
+   MUDAR: background → var(--esqueleto); height → espessura da barrinha. */
+.esqueleto {
+  display: block;
+  height: 14px;
+  border-radius: 8px;
+  background: var(--esqueleto);
+}
+
+/* .esqueleto--titulo
+   O QUE É: Barrinha que imita o título do cartão (mais alta e curta).
+   ONDE: Carregando (aula 35).
+   MUDAR: width → comprimento. */
+.esqueleto--titulo {
+  height: 20px;
+  width: 55%;
+}
+
+/* .esqueleto--texto
+   O QUE É: Barrinha que imita uma linha de texto.
+   ONDE: Carregando (aula 35).
+   MUDAR: width → comprimento. */
+.esqueleto--texto {
+  width: 90%;
+}
+
+/* .esqueleto--etiqueta
+   O QUE É: Barrinha arredondada que imita uma etiqueta.
+   ONDE: Carregando (aula 35).
+   MUDAR: width e height → tamanho. */
+.esqueleto--etiqueta {
+  height: 22px;
+  width: 38%;
+  border-radius: 999px;
+}
+
+/* .vazio
+   O QUE É: Caixa de "nada encontrado": borda tracejada, tudo centralizado.
+   ONDE: ListaProjetos (aula 31): quando nenhum projeto bate com a busca/filtro.
+   MUDAR: border → estilo da borda; padding → tamanho da caixa. */
+.vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 48px 24px;
+  border: 1px dashed var(--borda-forte);
+  border-radius: 20px;
+  text-align: center;
+}
+
+/* .vazio__titulo
+   O QUE É: Título da caixa de "nada encontrado".
+   ONDE: ListaProjetos (aula 31).
+   MUDAR: font-size → tamanho; color → cor. */
+.vazio__titulo {
+  font-size: 1.1875rem;
+  font-weight: 600;
+  color: var(--titulo);
+}
+
+/* .vazio p
+   O QUE É: Texto explicativo da caixa de "nada encontrado".
+   ONDE: ListaProjetos (aula 31). */
+.vazio p {
+  margin-bottom: 8px;
+  color: var(--texto-fraco);
+}
+
+/* 11. DETALHE, 404 E CHAMADA ------------------------------------------------ */
+/* .detalhe__texto
+   O QUE É: Texto grande da descrição do projeto.
+   ONDE: ProjetoDetalhe (aula 32).
+   MUDAR: font-size e line-height → tamanho e espaço entre as linhas. */
+.detalhe__texto {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: var(--texto);
+}
+
+/* .detalhe__acoes
+   O QUE É: Linha de botões embaixo do texto do projeto.
+   ONDE: ProjetoDetalhe (aula 32).
+   MUDAR: gap → espaço entre os botões. */
+.detalhe__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: space-between;
+}
+
+/* .endereco
+   O QUE É: Endereço da rota (ex.: /projetos/3), em destaque.
+   ONDE: ProjetoDetalhe (aula 32: o endereço /projetos/3) e Contato (aula 32: o
+      link do e-mail).
+   MUDAR: font-size e color → tamanho e cor. */
+.endereco {
+  font-family: var(--fonte-codigo);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--destaque-texto);
+}
+
+/* .erro404
+   O QUE É: Faixa inteira da página 404, com degradê no topo.
+   ONDE: NotFound (aula 32).
+   MUDAR: background → degradê (--degrade-hero até --fundo). */
+.erro404 {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(
+    120% 90% at 50% -20%,
+    var(--degrade-hero) 0%,
+    var(--fundo) 60%
+  );
+}
+
+/* .erro404__conteudo
+   O QUE É: Conteúdo centralizado da 404.
+   ONDE: NotFound (aula 32).
+   MUDAR: padding-block → altura da página. */
+.erro404__conteudo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: 104px 120px;
+  text-align: center;
+}
+
+/* .erro404__rota
+   O QUE É: Linha pequena acima do número ("rota * ...").
+   ONDE: NotFound (aula 32). */
+.erro404__rota {
+  font-family: var(--fonte-codigo);
+  font-size: 0.9375rem;
+  color: var(--texto-fraco);
+}
+
+/* .erro404__numero
+   O QUE É: O "404" gigante.
+   ONDE: NotFound (aula 32).
+   MUDAR: font-size → tamanho do número. */
+.erro404__numero {
+  margin-top: 12px;
+  font-size: clamp(7rem, 22vw, 12.5rem);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+/* .erro404__numero span
+   O QUE É: O ponto "." colorido depois do 404.
+   ONDE: NotFound (aula 32).
+   MUDAR: color → var(--destaque-texto). */
+.erro404__numero span {
+  color: var(--destaque-texto);
+}
+
+/* .erro404__titulo
+   O QUE É: "Página não encontrada".
+   ONDE: NotFound (aula 32).
+   MUDAR: font-size → tamanho. */
+.erro404__titulo {
+  margin-top: 8px;
+  font-size: 2.125rem;
+}
+
+/* .erro404__texto
+   O QUE É: Frase explicando o erro.
+   ONDE: NotFound (aula 32).
+   MUDAR: max-width → largura; color → var(--texto-fraco). */
+.erro404__texto {
+  max-width: 480px;
+  margin-top: 16px;
+  font-size: 1.1875rem;
+  color: var(--texto-fraco);
+}
+
+/* .erro404__acoes
+   O QUE É: Linha com os dois botões da 404 (voltar ao início, ver projetos).
+   ONDE: NotFound (aula 32).
+   MUDAR: gap → espaço entre os botões. */
+.erro404__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 36px;
+}
+
+/* .trecho-codigo
+   O QUE É: Pílula escura com um trechinho de código (a <Route> do coringa "*").
+   Cor fixa nos dois temas.
+   ONDE: NotFound (aula 32).
+   MUDAR: background → fundo do trecho; font-size → letra. */
+.trecho-codigo {
+  margin-top: 56px;
+  padding: 16px 22px;
+  background: #121826;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  box-shadow: var(--sombra-cartao);
+  font-family: var(--fonte-codigo);
+  font-size: 0.875rem;
+  color: #e6eaf2;
+}
+
+/* 12. RODAPÉ E BOTÃO DE TOPO ------------------------------------------------ */
+/* .rodape
+   O QUE É: Faixa do rodapé, com uma linha em cima.
+   ONDE: Footer (aula 29).
+   MUDAR: border-top → linha de cima. */
+.rodape {
+  border-top: 1px solid var(--borda);
+}
+
+/* .rodape__linha
+   O QUE É: Linha do rodapé: © nome e e-mail à esquerda, "feito com React" à
+   direita.
+   ONDE: Footer (aula 29).
+   MUDAR: padding-block → altura; font-size e color → letra e cor. */
+.rodape__linha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  padding-block: 28px;
+  font-family: var(--fonte-codigo);
+  font-size: 0.8125rem;
+  color: var(--texto-fraco);
+}
+
+/* .botao-topo
+   O QUE É: Botão redondo fixo no canto da tela que leva de volta ao topo.
+   ONDE: BotaoTopo (aula 34).
+   MUDAR: right e bottom → distância dos cantos; width/height → tamanho;
+      background → var(--destaque). */
+.botao-topo {
+  position: fixed;
+  right: 28px;
+  bottom: 24px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--destaque);
+  color: var(--botao-texto);
+  box-shadow: var(--brilho-botao);
+}
+
+/* .botao-topo:hover
+   O QUE É: Botão de topo com o mouse em cima: fica mais claro.
+   ONDE: BotaoTopo (aula 34). */
+.botao-topo:hover {
+  background: var(--destaque-hover);
+}
+
+/* 13. TELAS PEQUENAS ------------------------------------------------------- */
+/* @media (max-width: 900px)
+   O QUE É: TABLET (tela até 900px): a grade de cartões passa de 3 para 2
+   colunas, e "duas-colunas" e "sobre" viram 1 coluna.
+   ONDE: Home, ListaProjetos, ProjetoDetalhe, Contato.
+   MUDAR: o número 900px → a partir de qual largura o layout muda. */
+@media (max-width: 900px) {
+  .grade-cartoes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .duas-colunas,
+  .sobre {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+}
+
+/* @media (max-width: 720px)
+   O QUE É: CELULAR GRANDE (até 720px): diminui espaços (secao, container, hero,
+   chamada, formulario, 404). O Header ganha o botão hambúrguer: o menu vira uma
+   lista que abre embaixo da barra (classe menu--aberto, aula 30) e o botão de
+   tema vira um botão largo com texto.
+   ONDE: Header (aula 30), BotaoTema (aula 36) e os blocos citados.
+   MUDAR: o número 720px → a partir de qual largura o menu vira hambúrguer. */
+@media (max-width: 720px) {
+  .secao {
+    padding-block: 56px;
+  }
+
+  .container {
+    padding-inline: 20px;
+  }
+
+  .hero__linha {
+    padding-block: 56px 64px;
+    gap: 40px;
+  }
+
+  .chamada {
+    padding: 36px 24px;
+  }
+
+  .formulario {
+    padding: 28px 20px;
+  }
+
+  .erro404__conteudo {
+    padding-block: 72px 80px;
+  }
+
+  /* o botão de menu só aparece quando o Header tem esse botão (aula 30) */
+  .cabecalho__linha:has(.menu-botao) .menu-botao {
+    display: inline-flex;
+  }
+
+  .cabecalho__linha:has(.menu-botao) .menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 16px 20px 20px;
+    background: var(--superficie);
+    border-bottom: 1px solid var(--borda);
+    box-shadow: var(--sombra-cartao);
+    font-size: 1rem;
+  }
+
+  .cabecalho__linha:has(.menu-botao) .menu.menu--aberto {
+    display: flex;
+  }
+
+  .menu__link {
+    min-height: 52px;
+    padding: 0 18px;
+    border-radius: 14px;
+  }
+
+  .botao-tema {
+    width: 100%;
+    height: 52px;
+    margin-top: 8px;
+    border-radius: 14px;
+    justify-content: space-between;
+    padding: 0 18px;
+    font-weight: 600;
+  }
+
+  .botao-tema__rotulo {
+    display: inline;
+  }
+}
+
+/* @media (max-width: 620px)
+   O QUE É: CELULAR (até 620px): a grade fica com 1 cartão por linha e os botões
+   do Hero ocupam a largura toda.
+   ONDE: grade-cartoes e Hero (aula 29).
+   MUDAR: o número 620px → largura em que isso acontece. */
+@media (max-width: 620px) {
+  .grade-cartoes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero__acoes .botao {
+    width: 100%;
+  }
+}
